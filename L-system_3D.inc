@@ -865,19 +865,19 @@ which can be found in the LICENSE file.
     #if (vlength(vF) > 0)
         #local vF0 = vF;
     #else
-        #local vF0 = +x;
+        #local vF0 = +x; // vF0 = vcross(vR0, vU0) = vcross(-z, +y)
     #end // if
     // Initial right direction
     #if (vlength(vR) > 0)
         #local vR0 = vR;
     #else
-        #local vR0 = -z;
+        #local vR0 = -z; // vR0 = vcross(vU0, vF0) = vcross(+y, +x)
     #end // if
     // Initial up direction
     #if (vlength(vU) > 0)
         #local vU0 = vU;
     #else
-        #local vU0 = +y;
+        #local vU0 = +y; // vU0 = vcross(vF0, vR0) = vcross(+x, -z)
     #end // if
     // Initial angle for rotation around forward axis; i.e. roll
     #local AngleF0 = Angle;
