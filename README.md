@@ -35,3 +35,8 @@ The following macros must be called before the L_Transform() macro in order to e
 # !    InsertRadiusFunctions()
 ( )    InsertAngleFunctions()
 ```
+
+
+\- and the POV-Ray 2D L-system here:
+
+https://github.com/t-o-k/POV-Ray-2D-L-system
