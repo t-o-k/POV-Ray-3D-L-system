@@ -39,7 +39,7 @@ InsertNoChangeFunctions(Functions, "ABCD")
 #declare StackSize = 0*Iterations;
 #declare pStart = <-1.5, +1.5, +1.5>;
 
-#declare InitialAngle = radians(+90);
+#declare InitialAngle = +90; // degrees
 #declare InitialLength = 1.0;
 #declare InitialRadius = 0.11;
 
