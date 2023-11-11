@@ -656,6 +656,7 @@ which can be found in the LICENSE file.
 
 #macro InsertAngleFunctions(Fns, AngleScale, AngleIncrement)
 
+    #local AngleInc = radians(AngleIncrement);
     #local S = asc("(");
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
@@ -671,17 +672,17 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
     #declare Fns[S][I_AA_F] =
         function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
-            (af - AngleIncrement)/AngleScale
+            (af - AngleInc)/AngleScale
         }
     ;
     #declare Fns[S][I_AA_R] =
         function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
-            (ar - AngleIncrement)/AngleScale
+            (ar - AngleInc)/AngleScale
         }
     ;
     #declare Fns[S][I_AA_U] =
         function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
-            (au - AngleIncrement)/AngleScale
+            (au - AngleInc)/AngleScale
         }
     ;
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
@@ -702,17 +703,17 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
     #declare Fns[S][I_AA_F] =
         function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
-            af*AngleScale + AngleIncrement
+            af*AngleScale + AngleInc
         }
     ;
     #declare Fns[S][I_AA_R] =
         function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
-            ar*AngleScale + AngleIncrement
+            ar*AngleScale + AngleInc
         }
     ;
     #declare Fns[S][I_AA_U] =
         function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
-            au*AngleScale + AngleIncrement
+            au*AngleScale + AngleInc
         }
     ;
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
@@ -880,11 +881,11 @@ which can be found in the LICENSE file.
         #local vU0 = +y; // vU0 = vcross(vF0, vR0) = vcross(+x, -z)
     #end // if
     // Initial angle for rotation around forward axis; i.e. roll
-    #local AngleF0 = Angle;
+    #local AngleF0 = radians(Angle);
     // Initial angle for rotation around right axis; i.e. pitch
-    #local AngleR0 = Angle;
+    #local AngleR0 = radians(Angle);
     // Initial angle for rotation around up axis; i.e. yaw
-    #local AngleU0 = Angle;
+    #local AngleU0 = radians(Angle);
     // Initial length
     #local Length0 = Length;
     // Initial radius
