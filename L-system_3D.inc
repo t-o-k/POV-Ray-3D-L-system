@@ -1194,11 +1194,7 @@ which can be found in the LICENSE file.
                 ;
                 #if ((S != asc("f")) & (vlength(p1 - p0) > Nil))
                     #if (Cylinders)
-                        #if (Radius1 != Radius0)
-                            cone { p0, Radius0, p1, Radius1 }
-                        #else
-                            cylinder { p0, p1, Radius0 }
-                        #end // if
+                        cylinder { p0, p1, Radius0 }
                     #end // if
                     #if (Spheres)
                         sphere { p1, Radius1 }
