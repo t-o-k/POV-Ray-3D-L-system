@@ -26,6 +26,8 @@ f    Move along forward vector by length without drawing
 (    Increase the turning angle by multiplying by a scale factor and/or adding an increment
 )    Decrease the turning angle by subtracting an increment and/or dividing by a scale factor
 @    Draw a sphere with cylinder radius
+:    Select the first material in the array of materials
+;    Select the next material in the array of materials. If the current material is the last one, the first material is selected
 ```
 
 The following macros must be called before the L_Transform() macro in order to enable use of the symbols listed before them:
