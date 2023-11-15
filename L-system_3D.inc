@@ -91,6 +91,8 @@ which can be found in the LICENSE file.
 #declare Rules[asc(">")] = ">";
 #declare Rules[asc("(")] = "(";
 #declare Rules[asc(")")] = ")";
+#declare Rules[asc(":")] = ":";
+#declare Rules[asc(";")] = ";";
 
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ======= 10
 
@@ -842,7 +844,7 @@ which can be found in the LICENSE file.
 #end // macro _FunctionEval
 
 
-#macro L_Draw(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Spheres, Cylinders)
+#macro L_Draw(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials, Spheres, Cylinders)
 
     #local Nil = 1e-6;
     #if (StackSize > 0)
@@ -850,6 +852,7 @@ which can be found in the LICENSE file.
     #else
         #local SS = 100;
     #end // if
+    #local NoOfMaterials = dimension_size(Materials, 1);
     #local PP_Stack = array[SS];
     #local VF_Stack = array[SS];
     #local VR_Stack = array[SS];
@@ -860,6 +863,7 @@ which can be found in the LICENSE file.
     #local LL_Stack = array[SS];
     #local RR_Stack = array[SS];
     #local SW_Stack = array[SS];
+    #local MM_Stack = array[SS];
     // Initial start position
     #local p0 = pStart;
     // Initial forward direction
@@ -892,9 +896,16 @@ which can be found in the LICENSE file.
     #local Radius0 = Radius;
     // Initial swap
     #local Swap0 = 0; //
+    // Initial Material no.
+    #local MaterialNo = 0;
     #local SP = -1;
     #if (Spheres)
-        sphere { p0, Radius0 }
+        sphere {
+            p0, Radius0
+            #if (NoOfMaterials > 1)
+                material { Materials[MaterialNo] }
+            #end // if
+        }
     #end // if
     #for (I, 1, strlen(Symbols))
         #local Sym = substr(Symbols, I, 1);
@@ -912,6 +923,7 @@ which can be found in the LICENSE file.
                 #local LL_Stack[SP] = Length0;
                 #local RR_Stack[SP] = Radius0;
                 #local SW_Stack[SP] = Swap0;
+                #local MM_Stack[SP] = MaterialNo;
                 #break
             #case (asc("]")) // Pop
                 #local p0 = PP_Stack[SP];
@@ -924,10 +936,22 @@ which can be found in the LICENSE file.
                 #local Length0 = LL_Stack[SP];
                 #local Radius0 = RR_Stack[SP];
                 #local Swap0 = SW_Stack[SP];
+                #local MaterialNo = MM_Stack[SP];
                 #local SP = SP - 1;
                 #break
+            #case (asc(":")) // 
+                 #local MaterialNo = 0;
+                #break
+            #case (asc(";")) // 
+                 #local MaterialNo = mod(MaterialNo + 1, NoOfMaterials);
+                #break
             #case (asc("@"))
-                sphere { p0, Radius0 }
+                sphere {
+                    p0, Radius0
+                    #if (NoOfMaterials > 1)
+                        material { Materials[MaterialNo] }
+                    #end // if
+                }
                 #break
             #else
                 #local p1 =
@@ -1194,10 +1218,20 @@ which can be found in the LICENSE file.
                 ;
                 #if ((S != asc("f")) & (vlength(p1 - p0) > Nil))
                     #if (Cylinders)
-                        cylinder { p0, p1, Radius0 }
+                        cylinder {
+                            p0, p1, Radius0
+                            #if (NoOfMaterials > 1)
+                                material { Materials[MaterialNo] }
+                            #end // if
+                        }
                     #end // if
                     #if (Spheres)
-                        sphere { p1, Radius1 }
+                        sphere {
+                            p1, Radius1
+                            #if (NoOfMaterials > 1)
+                                material { Materials[MaterialNo] }
+                            #end // if
+                        }
                     #end // if
                 #end // if
                 #local p0 = p1;
@@ -1216,16 +1250,16 @@ which can be found in the LICENSE file.
 #end // macro L_Draw
 
 
-#macro L_DrawSpheres(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius)
+#macro L_DrawSpheres(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials)
 
-    L_Draw(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, true, false)
+    L_Draw(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials, true, false)
 
 #end // macro L_DrawSpheres
 
 
-#macro L_DrawCylinders(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius)
+#macro L_DrawCylinders(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials)
 
-    L_Draw(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, false, true)
+    L_Draw(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials, false, true)
 
 #end // macro L_DrawCylinders
 
@@ -1234,5 +1268,8 @@ which can be found in the LICENSE file.
 #declare Functions = array[MaxNoOfSymbols][18];
 
 InsertBasicFunctions(Functions)
+
+
+#declare NoMaterials = array[1] { material { } };
 
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ======= 10
