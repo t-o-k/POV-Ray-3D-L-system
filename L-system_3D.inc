@@ -1001,14 +1001,6 @@ which can be found in the LICENSE file.
     // Initial Material no.
     #local MaterialNo = 0;
     #local SP = -1;
-    #if (Spheres)
-        sphere {
-            p0, Radius0
-            #if (NoOfMaterials > 1)
-                material { Materials[MaterialNo] }
-            #end // if
-        }
-    #end // if
     #for (I, 1, strlen(Symbols))
         #local Sym = substr(Symbols, I, 1);
         #local S = asc(Sym);
@@ -1324,22 +1316,44 @@ which can be found in the LICENSE file.
                         Radius0
                     )
                 ;
-                #if ((S != asc("f")) & (vlength(p1 - p0) > Nil))
+                #if (S = asc("@"))
+                    #if (Spheres)
+                        #if (Radius0 <= Nil)
+                            #warning "Degenerate sphere"
+                        #else
+                            sphere {
+                                p0, Radius0
+                                #if (UseMaterials)
+                                    material { Materials[MaterialNo] }
+                                #end // if
+                            }
+                        #end // if
+                    #end // if
+                #end // if
+                #if (S = asc("F"))
                     #if (Cylinders)
-                        cylinder {
-                            p0, p1, Radius0
-                            #if (NoOfMaterials > 1)
-                                material { Materials[MaterialNo] }
-                            #end // if
-                        }
+                        #if ((Radius0 <= Nil) | (vlength(p1 - p0) <= Nil))
+                            #warning "Degenerate cylinder"
+                        #else
+                            cylinder {
+                                p0, p1, Radius0
+                                #if (NoOfMaterials > 1)
+                                    material { Materials[MaterialNo] }
+                                #end // if
+                            }
+                        #end // if
                     #end // if
                     #if (Spheres)
-                        sphere {
-                            p1, Radius1
-                            #if (NoOfMaterials > 1)
-                                material { Materials[MaterialNo] }
-                            #end // if
-                        }
+                        #if (Radius1 <= Nil)
+                            #warning "Degenerate sphere"
+                        #else
+                            sphere {
+                                p1, Radius1
+                                #if (UseMaterials)
+                                    material { Materials[MaterialNo] }
+                                #end // if
+                            }
+                        #end // if
                     #end // if
                 #end // if
                 #local p0 = p1;
