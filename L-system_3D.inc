@@ -1035,10 +1035,10 @@ which can be found in the LICENSE file.
                 #local SP = SP - 1;
                 #break
             #case (asc(":")) // 
-                 #local MaterialNo = 0;
+                #local MaterialNo = 0;
                 #break
             #case (asc(";")) // 
-                 #local MaterialNo = mod(MaterialNo + 1, NoOfMaterials);
+                #local MaterialNo = mod(MaterialNo + 1, NoOfMaterials);
                 #break
             #case (asc("@"))
                 sphere {
@@ -1347,14 +1347,20 @@ which can be found in the LICENSE file.
 
 #macro L_DrawSpheres(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials)
 
-    L_Draw(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials, true, false)
+    L_Draw(
+        Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials,
+        true, false
+    )
 
 #end // macro L_DrawSpheres
 
 
 #macro L_DrawCylinders(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials)
 
-    L_Draw(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials, false, true)
+    L_Draw(
+        Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials,
+        false, true
+    )
 
 #end // macro L_DrawCylinders
 
