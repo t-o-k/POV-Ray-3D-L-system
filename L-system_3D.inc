@@ -1364,6 +1364,16 @@ which can be found in the LICENSE file.
 
 #end // macro L_DrawCylinders
 
+
+#macro L_DrawSpheresAndCylinders(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials)
+
+    L_Draw(
+        Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials,
+        true, true
+    )
+
+#end // macro L_DrawSpheresAndCylinders
+
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ====== 10 ====== 11 ====== 12
 
 #declare Functions = array[MaxNoOfSymbols][18];
