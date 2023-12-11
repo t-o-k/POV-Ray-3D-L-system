@@ -1001,6 +1001,9 @@ which can be found in the LICENSE file.
         #local S = asc(Sym);
         #switch (S)
             #case (asc("[")) // Push
+                #if (SP >= SS - 1)
+                    #error "The stack is full"
+                #end // if
                 #local SP = SP + 1;
                 #local PP_Stack[SP] = p0;
                 #local VF_Stack[SP] = vF0;
@@ -1015,6 +1018,9 @@ which can be found in the LICENSE file.
                 #local MM_Stack[SP] = MaterialNo;
                 #break
             #case (asc("]")) // Pop
+                #if (SP < 0)
+                    #error "The stack is empty"
+                #end // if
                 #local p0 = PP_Stack[SP];
                 #local vF0 = VF_Stack[SP];
                 #local vR0 = VR_Stack[SP];
