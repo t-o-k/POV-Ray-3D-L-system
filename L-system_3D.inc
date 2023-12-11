@@ -129,12 +129,12 @@ which can be found in the LICENSE file.
 #declare I_VU_X =  9; // Up vector coordinate x
 #declare I_VU_Y = 10; // Up vector coordinate y
 #declare I_VU_Z = 11; // Up vector coordinate z
-#declare I_AA_F = 12; // Turn angle
-#declare I_AA_R = 13; // Turn angle
-#declare I_AA_U = 14; // Turn angle
-#declare I_LLLL = 15; // Length
-#declare I_RRRR = 16; // Radius
-#declare I_SWAP = 17; // Swap directions of vectors
+#declare I_SWAP = 12; // Swap directions of vectors
+#declare I_AA_F = 13; // Turn angle
+#declare I_AA_R = 14; // Turn angle
+#declare I_AA_U = 15; // Turn angle
+#declare I_LLLL = 16; // Length
+#declare I_RRRR = 17; // Radius
 
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ====== 10 ====== 11 ====== 12
 
@@ -199,6 +199,11 @@ which can be found in the LICENSE file.
         uz
     }
 ;
+#declare NoChangeFunctions[I_SWAP] =
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        s
+    }
+;
 #declare NoChangeFunctions[I_AA_F] =
     function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
         af
@@ -222,11 +227,6 @@ which can be found in the LICENSE file.
 #declare NoChangeFunctions[I_RRRR] =
     function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
         r
-    }
-;
-#declare NoChangeFunctions[I_SWAP] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
-        s
     }
 ;
 
@@ -259,12 +259,12 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
     #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
+    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
     #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
 
     #local S = asc("f"); // Move forward while not "drawing"
     #declare Fns[S][I_PP_X] =
@@ -291,12 +291,13 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
     #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
+    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
     #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
+
     #local S = asc("|"); // Turn around (Yaw +pi radians)
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
@@ -334,12 +335,12 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
     #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
+    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
     #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
 
     #local S = asc("\\"); // Roll left
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
@@ -378,12 +379,12 @@ which can be found in the LICENSE file.
             AxisRotateFnZ(ux, uy, uz, fx, fy, fz, select(s, -af, +af, -af))
         }
     ;
+    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
     #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
 
     #local S = asc("/"); // Roll right 
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
@@ -422,12 +423,12 @@ which can be found in the LICENSE file.
             AxisRotateFnZ(ux, uy, uz, fx, fy, fz, select(s, +af, -af, +af))
         }
     ;
+    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
     #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
 
     #local S = asc("&"); // Pitch down
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
@@ -466,12 +467,12 @@ which can be found in the LICENSE file.
             AxisRotateFnZ(ux, uy, uz, rx, ry, rz, select(s, -ar, +ar, -ar))
         }
     ;
+    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
     #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
 
     #local S = asc("^"); // Pitch up
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
@@ -511,12 +512,12 @@ which can be found in the LICENSE file.
 
         }
     ;
+    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
     #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
 
     #local S = asc("+"); // Yaw right
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
@@ -555,12 +556,12 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
     #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
+    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
     #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
 
     #local S = asc("-"); // Yaw left
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
@@ -599,12 +600,12 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
     #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
+    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
     #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
 
     #local S = asc("~"); // Swap rotation directions for roll, pitch and yaw
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
@@ -619,16 +620,16 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
     #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
-    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
-    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
-    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
-    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
-    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
     #declare Fns[S][I_SWAP] =
         function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
             select(s, 0, 1, 0)
         }
     ;
+    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
+    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
+    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
+    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
+    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
 
 #end // macro InsertBasicFunctions
 
@@ -650,6 +651,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
     #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
+    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] =
         function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
             (af - AngleInc)/AngleScale
@@ -667,7 +669,6 @@ which can be found in the LICENSE file.
     ;
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
 
     #local S = asc(")");
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
@@ -682,6 +683,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
     #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
+    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] =
         function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
             af*AngleScale + AngleInc
@@ -699,7 +701,6 @@ which can be found in the LICENSE file.
     ;
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
 
 #end // macro InsertAngleFunctions
 
@@ -719,6 +720,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
     #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
+    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
     #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
@@ -728,7 +730,6 @@ which can be found in the LICENSE file.
         }
     ;
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
 
     #local S = asc("<");
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
@@ -743,6 +744,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
     #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
+    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
     #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
@@ -752,7 +754,6 @@ which can be found in the LICENSE file.
         }
     ;
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
 
 #end // macro InsertLengthFunctions
 
@@ -772,6 +773,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
     #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
+    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
     #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
@@ -781,7 +783,6 @@ which can be found in the LICENSE file.
             (r - RadiusIncrement)/RadiusScale
         }
     ;
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
 
     #local S = asc("#");
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
@@ -796,6 +797,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
     #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
+    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
     #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
@@ -805,7 +807,6 @@ which can be found in the LICENSE file.
             r*RadiusScale + RadiusIncrement
         }
     ;
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
 
 #end // macro InsertRadiusFunctions
 
@@ -827,12 +828,12 @@ which can be found in the LICENSE file.
         #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
         #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
         #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
+        #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
         #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
         #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
         #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
         #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
         #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
-        #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #end // for
 
 #end // macro InsertNoChangeFunctions
@@ -927,19 +928,19 @@ which can be found in the LICENSE file.
 #end // macro L_Transform_DebugMore
 
 
-#macro _FunctionEval(Fn, pP, vF, vR, vU, AngleF, AngleR, AngleU, Length, Radius, Swap)
+#macro _FunctionEval(Fn, pP, vF, vR, vU, Swap, AngleF, AngleR, AngleU, Length, Radius)
 
     Fn(
         pP.x, pP.y, pP.z,
         vF.x, vF.y, vF.z,
         vR.x, vR.y, vR.z,
         vU.x, vU.y, vU.z,
+        Swap,
         AngleF,
         AngleR,
         AngleU,
         Length,
-        Radius,
-        Swap
+        Radius
     )
 
 #end // macro _FunctionEval
@@ -958,12 +959,12 @@ which can be found in the LICENSE file.
     #local VF_Stack = array[SS];
     #local VR_Stack = array[SS];
     #local VU_Stack = array[SS];
+    #local SW_Stack = array[SS];
     #local AF_Stack = array[SS];
     #local AR_Stack = array[SS];
     #local AU_Stack = array[SS];
     #local LL_Stack = array[SS];
     #local RR_Stack = array[SS];
-    #local SW_Stack = array[SS];
     #local MM_Stack = array[SS];
     // Initial start position
     #local p0 = pStart;
@@ -985,6 +986,8 @@ which can be found in the LICENSE file.
     #else
         #local vU0 = +y; // vU0 = vcross(vF0, vR0) = vcross(+x, -z)
     #end // if
+    // Initial swap
+    #local Swap0 = 0;
     // Initial angle for rotation around forward axis; i.e. roll
     #local AngleF0 = radians(Angle);
     // Initial angle for rotation around right axis; i.e. pitch
@@ -995,8 +998,6 @@ which can be found in the LICENSE file.
     #local Length0 = Length;
     // Initial radius
     #local Radius0 = Radius;
-    // Initial swap
-    #local Swap0 = 0; //
     // Initial Material no.
     #local MaterialNo = 0;
     #local SP = -1;
@@ -1021,12 +1022,12 @@ which can be found in the LICENSE file.
                 #local VF_Stack[SP] = vF0;
                 #local VR_Stack[SP] = vR0;
                 #local VU_Stack[SP] = vU0;
+                #local SW_Stack[SP] = Swap0;
                 #local AF_Stack[SP] = AngleF0;
                 #local AR_Stack[SP] = AngleR0;
                 #local AU_Stack[SP] = AngleU0;
                 #local LL_Stack[SP] = Length0;
                 #local RR_Stack[SP] = Radius0;
-                #local SW_Stack[SP] = Swap0;
                 #local MM_Stack[SP] = MaterialNo;
                 #break
             #case (asc("]")) // Pop
@@ -1037,12 +1038,12 @@ which can be found in the LICENSE file.
                 #local vF0 = VF_Stack[SP];
                 #local vR0 = VR_Stack[SP];
                 #local vU0 = VU_Stack[SP];
+                #local Swap0 = SW_Stack[SP];
                 #local AngleF0 = AF_Stack[SP];
                 #local AngleR0 = AR_Stack[SP];
                 #local AngleU0 = AU_Stack[SP];
                 #local Length0 = LL_Stack[SP];
                 #local Radius0 = RR_Stack[SP];
-                #local Swap0 = SW_Stack[SP];
                 #local MaterialNo = MM_Stack[SP];
                 #local SP = SP - 1;
                 #break
@@ -1069,12 +1070,12 @@ which can be found in the LICENSE file.
                             vF0,
                             vR0,
                             vU0,
+                            Swap0,
                             AngleF0,
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0,
-                            Swap0
+                            Radius0
                         ),
                         _FunctionEval(
                             Fns[S][I_PP_Y],
@@ -1082,12 +1083,12 @@ which can be found in the LICENSE file.
                             vF0,
                             vR0,
                             vU0,
+                            Swap0,
                             AngleF0,
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0,
-                            Swap0
+                            Radius0
                         ),
                         _FunctionEval(
                             Fns[S][I_PP_Z],
@@ -1095,12 +1096,12 @@ which can be found in the LICENSE file.
                             vF0,
                             vR0,
                             vU0,
+                            Swap0,
                             AngleF0,
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0,
-                            Swap0
+                            Radius0
                         )
                     >
                 ;
@@ -1112,12 +1113,12 @@ which can be found in the LICENSE file.
                             vF0,
                             vR0,
                             vU0,
+                            Swap0,
                             AngleF0,
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0,
-                            Swap0
+                            Radius0
                         ),
                         _FunctionEval(
                             Fns[S][I_VF_Y],
@@ -1125,12 +1126,12 @@ which can be found in the LICENSE file.
                             vF0,
                             vR0,
                             vU0,
+                            Swap0,
                             AngleF0,
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0,
-                            Swap0
+                            Radius0
                         ),
                         _FunctionEval(
                             Fns[S][I_VF_Z],
@@ -1138,12 +1139,12 @@ which can be found in the LICENSE file.
                             vF0,
                             vR0,
                             vU0,
+                            Swap0,
                             AngleF0,
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0,
-                            Swap0
+                            Radius0
                         )
                     >
                 ;
@@ -1155,12 +1156,12 @@ which can be found in the LICENSE file.
                             vF0,
                             vR0,
                             vU0,
+                            Swap0,
                             AngleF0,
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0,
-                            Swap0
+                            Radius0
                         ),
                         _FunctionEval(
                             Fns[S][I_VR_Y],
@@ -1168,12 +1169,12 @@ which can be found in the LICENSE file.
                             vF0,
                             vR0,
                             vU0,
+                            Swap0,
                             AngleF0,
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0,
-                            Swap0
+                            Radius0
                         ),
                         _FunctionEval(
                             Fns[S][I_VR_Z],
@@ -1181,12 +1182,12 @@ which can be found in the LICENSE file.
                             vF0,
                             vR0,
                             vU0,
+                            Swap0,
                             AngleF0,
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0,
-                            Swap0
+                            Radius0
                         )
                     >
                 ;
@@ -1198,12 +1199,12 @@ which can be found in the LICENSE file.
                             vF0,
                             vR0,
                             vU0,
+                            Swap0,
                             AngleF0,
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0,
-                            Swap0
+                            Radius0
                         ),
                         _FunctionEval(
                             Fns[S][I_VU_Y],
@@ -1211,12 +1212,12 @@ which can be found in the LICENSE file.
                             vF0,
                             vR0,
                             vU0,
+                            Swap0,
                             AngleF0,
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0,
-                            Swap0
+                            Radius0
                         ),
                         _FunctionEval(
                             Fns[S][I_VU_Z],
@@ -1224,14 +1225,29 @@ which can be found in the LICENSE file.
                             vF0,
                             vR0,
                             vU0,
+                            Swap0,
                             AngleF0,
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0,
-                            Swap0
+                            Radius0
                         )
                     >
+                ;
+                #local Swap1 =
+                    _FunctionEval(
+                        Fns[S][I_SWAP],
+                        p0,
+                        vF0,
+                        vR0,
+                        vU0,
+                        Swap0,
+                        AngleF0,
+                        AngleR0,
+                        AngleU0,
+                        Length0,
+                        Radius0
+                    )
                 ;
                 #local AngleF1 =
                     _FunctionEval(
@@ -1240,12 +1256,12 @@ which can be found in the LICENSE file.
                         vF0,
                         vR0,
                         vU0,
+                        Swap0,
                         AngleF0,
                         AngleR0,
                         AngleU0,
                         Length0,
-                        Radius0,
-                        Swap0
+                        Radius0
                     )
                 ;
                 #local AngleR1 =
@@ -1255,12 +1271,12 @@ which can be found in the LICENSE file.
                         vF0,
                         vR0,
                         vU0,
+                        Swap0,
                         AngleF0,
                         AngleR0,
                         AngleU0,
                         Length0,
-                        Radius0,
-                        Swap0
+                        Radius0
                     )
                 ;
                 #local AngleU1 =
@@ -1270,12 +1286,12 @@ which can be found in the LICENSE file.
                         vF0,
                         vR0,
                         vU0,
+                        Swap0,
                         AngleF0,
                         AngleR0,
                         AngleU0,
                         Length0,
-                        Radius0,
-                        Swap0
+                        Radius0
                     )
                 ;
                 #local Length1 =
@@ -1285,12 +1301,12 @@ which can be found in the LICENSE file.
                         vF0,
                         vR0,
                         vU0,
+                        Swap0,
                         AngleF0,
                         AngleR0,
                         AngleU0,
                         Length0,
-                        Radius0,
-                        Swap0
+                        Radius0
                     )
                 ;
                 #local Radius1 =
@@ -1300,27 +1316,12 @@ which can be found in the LICENSE file.
                         vF0,
                         vR0,
                         vU0,
+                        Swap0,
                         AngleF0,
                         AngleR0,
                         AngleU0,
                         Length0,
-                        Radius0,
-                        Swap0
-                    )
-                ;
-                #local Swap1 =
-                    _FunctionEval(
-                        Fns[S][I_SWAP],
-                        p0,
-                        vF0,
-                        vR0,
-                        vU0,
-                        AngleF0,
-                        AngleR0,
-                        AngleU0,
-                        Length0,
-                        Radius0,
-                        Swap0
+                        Radius0
                     )
                 ;
                 #if ((S != asc("f")) & (vlength(p1 - p0) > Nil))
@@ -1345,12 +1346,12 @@ which can be found in the LICENSE file.
                 #local vF0 = vF1;
                 #local vR0 = vR1;
                 #local vU0 = vU1;
+                #local Swap0 = Swap1;
                 #local AngleF0 = AngleF1;
                 #local AngleR0 = AngleR1;
                 #local AngleU0 = AngleU1;
                 #local Length0 = Length1;
                 #local Radius0 = Radius1;
-                #local Swap0 = Swap1;
         #end // switch
     #end // for
 
