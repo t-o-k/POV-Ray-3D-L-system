@@ -265,6 +265,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
     #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
+
     #local S = asc("f"); // Move forward while not "drawing"
     #declare Fns[S][I_PP_X] =
         function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
@@ -339,6 +340,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
     #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
+
     #local S = asc("\\"); // Roll left
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
@@ -382,6 +384,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
     #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
+
     #local S = asc("/"); // Roll right 
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
@@ -425,6 +428,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
     #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
+
     #local S = asc("&"); // Pitch down
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
@@ -468,6 +472,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
     #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
+
     #local S = asc("^"); // Pitch up
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
@@ -512,6 +517,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
     #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
+
     #local S = asc("+"); // Yaw right
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
@@ -555,6 +561,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
     #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
+
     #local S = asc("-"); // Yaw left
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
@@ -598,6 +605,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
     #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
+
     #local S = asc("~"); // Swap rotation directions for roll, pitch and yaw
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
@@ -628,6 +636,7 @@ which can be found in the LICENSE file.
 #macro InsertAngleFunctions(Fns, AngleScale, AngleIncrement)
 
     #local AngleInc = radians(AngleIncrement);
+
     #local S = asc("(");
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
@@ -659,6 +668,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
     #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
+
     #local S = asc(")");
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
@@ -719,6 +729,7 @@ which can be found in the LICENSE file.
     ;
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
     #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
+
     #local S = asc("<");
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
@@ -771,6 +782,7 @@ which can be found in the LICENSE file.
         }
     ;
     #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
+
     #local S = asc("#");
     #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
