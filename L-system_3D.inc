@@ -253,7 +253,6 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
-    #declare Fns[S][I_MATN] = NoChangeFunctions[I_MATN];
 
     #local S = asc("F"); // Move forward while "drawing"
     #declare Fns[S][I_PP_X] =
