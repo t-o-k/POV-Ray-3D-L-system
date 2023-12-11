@@ -234,6 +234,27 @@ which can be found in the LICENSE file.
 
 #macro InsertBasicFunctions(Fns)
 
+    #local S = asc("@"); // Do not move forward while "drawing"
+    #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
+    #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
+    #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
+    #declare Fns[S][I_VF_X] = NoChangeFunctions[I_VF_X];
+    #declare Fns[S][I_VF_Y] = NoChangeFunctions[I_VF_Y];
+    #declare Fns[S][I_VF_Z] = NoChangeFunctions[I_VF_Z];
+    #declare Fns[S][I_VR_X] = NoChangeFunctions[I_VR_X];
+    #declare Fns[S][I_VR_Y] = NoChangeFunctions[I_VR_Y];
+    #declare Fns[S][I_VR_Z] = NoChangeFunctions[I_VR_Z];
+    #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
+    #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
+    #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
+    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
+    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
+    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
+    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
+    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
+    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
+    #declare Fns[S][I_MATN] = NoChangeFunctions[I_MATN];
+
     #local S = asc("F"); // Move forward while "drawing"
     #declare Fns[S][I_PP_X] =
         function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
