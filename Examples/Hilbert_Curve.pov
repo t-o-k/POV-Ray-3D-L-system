@@ -20,6 +20,7 @@ global_settings { assumed_gamma 1.0 }
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ======= 10
 
 // Constants
+#declare Rules[asc("@")] = "@";
 #declare Rules[asc("F")] = "F";
 #declare Rules[asc("f")] = "f";
 
@@ -29,7 +30,7 @@ global_settings { assumed_gamma 1.0 }
 #declare Rules[asc("C")] = "|D^|F^B-F+C^F^A&&FA&F^C+F+B^F^D//";
 #declare Rules[asc("D")] = "|CFB-F+B|FA&F^A&&FB-F+B|FC//";
 
-#declare Axiom = "A";
+#declare Axiom = "@A";
 
 InsertNoChangeFunctions(Functions, "ABCD")
 
