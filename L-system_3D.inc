@@ -17,6 +17,27 @@ which can be found in the LICENSE file.
 
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ====== 10 ====== 11 ====== 12
 
+#macro DebugString(IndentStr, Str)
+
+    #local C = 120 - strlen(IndentStr);
+    #local L = strlen(Str);
+    #local D = div(L, C);
+    #local M = mod(L, C);
+    #for (I, 0, D-1)
+        #debug IndentStr
+        #debug substr(Str, 1 + I*C, C)
+        #debug "\n"
+    #end // for
+    #local LastStr = substr(Str, 1 + D*C, M)
+    #if (strlen(LastStr) > 0)
+        #debug IndentStr
+        #debug LastStr
+        #debug "\n"
+    #end // if
+
+#end // macro DebugString
+
+
 #macro _TmpAxisRotateFn0(Fn)
 
     function(x, y, z, ax, ay, az, w) {
@@ -824,6 +845,74 @@ which can be found in the LICENSE file.
     AllSymbols
 
 #end // macro L_Transform
+
+
+#macro L_Transform_Debug(AxiomSymbols, L_Rules, NoOfIterations)
+
+    #debug "\n"
+    #local I = 0;
+    #debug concat("I = ", str(I, 0, 0), "\n")
+    #local AllSymbols = AxiomSymbols;
+    #debug "AllSymbols =\n"
+    DebugString("    ", AllSymbols)
+    #while (I < NoOfIterations)
+        #local I = I + 1;
+        #debug concat("I = ", str(I, 0, 0), "\n")
+        #local IterSymbols = "";
+        #for (J, 1, strlen(AllSymbols))
+            #local Sym = substr(AllSymbols, J, 1);
+            #local ProdSymbols = L_Rules[asc(Sym)];
+            #if (strlen(ProdSymbols) > 0)
+                #local IterSymbols = concat(IterSymbols, ProdSymbols);
+            #end // if
+        #end // for
+        #local AllSymbols = IterSymbols;
+        #debug "AllSymbols =\n"
+        DebugString("    ", AllSymbols)
+    #end // for
+    #debug "\n"
+
+    AllSymbols
+
+#end // macro L_Transform_Debug
+
+
+#macro L_Transform_DebugMore(AxiomSymbols, L_Rules, NoOfIterations)
+
+    #debug "\n"
+    #local I = 0;
+    #debug concat("I = ", str(I, 0, 0), "\n")
+    #local AllSymbols = AxiomSymbols;
+    #debug "AllSymbols =\n"
+    DebugString("    ", AllSymbols)
+    #while (I < NoOfIterations)
+        #local I = I + 1;
+        #debug concat("I = ", str(I, 0, 0), "\n")
+        #local IterSymbols = "";
+        #debug "    IterSymbols =\n"
+        DebugString("        ", IterSymbols)
+        #for (J, 1, strlen(AllSymbols))
+            #local Sym = substr(AllSymbols, J, 1);
+            #local ProdSymbols = L_Rules[asc(Sym)];
+            #debug concat("    Sym = ", Sym, "\n")
+            #debug "    ProdSymbols =\n"
+            DebugString("        ", ProdSymbols)
+            #debug concat("    strlen(ProdSymbols) = ", str(strlen(ProdSymbols), 0, 0), "\n")
+            #if (strlen(ProdSymbols) > 0)
+                #local IterSymbols = concat(IterSymbols, ProdSymbols);
+                #debug "    IterSymbols =\n"
+                DebugString("        ", IterSymbols)
+            #end // if
+        #end // for
+        #local AllSymbols = IterSymbols;
+        #debug "AllSymbols =\n"
+        DebugString("    ", AllSymbols)
+    #end // for
+    #debug "\n"
+
+    AllSymbols
+
+#end // macro L_Transform_DebugMore
 
 
 #macro _FunctionEval(Fn, pP, vF, vR, vU, AngleF, AngleR, AngleU, Length, Radius, Swap)
