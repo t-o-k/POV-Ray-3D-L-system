@@ -1045,14 +1045,6 @@ which can be found in the LICENSE file.
             #case (asc(";")) // 
                 #local MaterialNo = mod(MaterialNo + 1, NoOfMaterials);
                 #break
-            #case (asc("@"))
-                sphere {
-                    p0, Radius0
-                    #if (NoOfMaterials > 1)
-                        material { Materials[MaterialNo] }
-                    #end // if
-                }
-                #break
             #else
                 #local p1 =
                     <
@@ -1323,7 +1315,7 @@ which can be found in the LICENSE file.
                         #else
                             sphere {
                                 p0, Radius0
-                                #if (UseMaterials)
+                                #if (NoOfMaterials > 1)
                                     material { Materials[MaterialNo] }
                                 #end // if
                             }
@@ -1349,7 +1341,7 @@ which can be found in the LICENSE file.
                         #else
                             sphere {
                                 p1, Radius1
-                                #if (UseMaterials)
+                                #if (NoOfMaterials > 1)
                                     material { Materials[MaterialNo] }
                                 #end // if
                             }
