@@ -140,92 +140,92 @@ which can be found in the LICENSE file.
 
 #declare NoChangeFunctions = array[18];
 #declare NoChangeFunctions[I_PP_X] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         x
     }
 ;
 #declare NoChangeFunctions[I_PP_Y] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         y
     }
 ;
 #declare NoChangeFunctions[I_PP_Z] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         z
     }
 ;
 #declare NoChangeFunctions[I_VF_X] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         fx
     }
 ;
 #declare NoChangeFunctions[I_VF_Y] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         fy
     }
 ;
 #declare NoChangeFunctions[I_VF_Z] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         fz
     }
 ;
 #declare NoChangeFunctions[I_VR_X] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         rx
     }
 ;
 #declare NoChangeFunctions[I_VR_Y] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         ry
     }
 ;
 #declare NoChangeFunctions[I_VR_Z] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         rz
     }
 ;
 #declare NoChangeFunctions[I_VU_X] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         ux
     }
 ;
 #declare NoChangeFunctions[I_VU_Y] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         uy
     }
 ;
 #declare NoChangeFunctions[I_VU_Z] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         uz
     }
 ;
 #declare NoChangeFunctions[I_SWAP] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         s
     }
 ;
 #declare NoChangeFunctions[I_AA_F] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         af
     }
 ;
 #declare NoChangeFunctions[I_AA_R] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         ar
     }
 ;
 #declare NoChangeFunctions[I_AA_U] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         au
     }
 ;
 #declare NoChangeFunctions[I_LLLL] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         l
     }
 ;
 #declare NoChangeFunctions[I_RRRR] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
         r
     }
 ;
@@ -236,17 +236,17 @@ which can be found in the LICENSE file.
 
     #local S = asc("F"); // Move forward while "drawing"
     #declare Fns[S][I_PP_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             x + l*fx/f_r(fx, fy, fz)
         }
     ;
     #declare Fns[S][I_PP_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             y + l*fy/f_r(fx, fy, fz)
         }
     ;
     #declare Fns[S][I_PP_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             z + l*fz/f_r(fx, fy, fz)
         }
     ;
@@ -268,17 +268,17 @@ which can be found in the LICENSE file.
 
     #local S = asc("f"); // Move forward while not "drawing"
     #declare Fns[S][I_PP_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             x + l*fx/f_r(fx, fy, fz)
         }
     ;
     #declare Fns[S][I_PP_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             y + l*fy/f_r(fx, fy, fz)
         }
     ;
     #declare Fns[S][I_PP_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             z + l*fz/f_r(fx, fy, fz)
         }
     ;
@@ -303,32 +303,32 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
     #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
     #declare Fns[S][I_VF_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             -fx
         }
     ;
     #declare Fns[S][I_VF_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             -fy
         }
     ;
     #declare Fns[S][I_VF_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             -fz
         }
     ;
     #declare Fns[S][I_VR_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             -rx
         }
     ;
     #declare Fns[S][I_VR_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             -ry
         }
     ;
     #declare Fns[S][I_VR_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             -rz
         }
     ;
@@ -350,32 +350,32 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VF_Y] = NoChangeFunctions[I_VF_Y];
     #declare Fns[S][I_VF_Z] = NoChangeFunctions[I_VF_Z];
     #declare Fns[S][I_VR_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnX(rx, ry, rz, fx, fy, fz, select(s, -af, +af, -af))
         }
     ;
     #declare Fns[S][I_VR_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnY(rx, ry, rz, fx, fy, fz, select(s, -af, +af, -af))
         }
     ;
     #declare Fns[S][I_VR_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnZ(rx, ry, rz, fx, fy, fz, select(s, -af, +af, -af))
         }
     ;
     #declare Fns[S][I_VU_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnX(ux, uy, uz, fx, fy, fz, select(s, -af, +af, -af))
         }
     ;
     #declare Fns[S][I_VU_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnY(ux, uy, uz, fx, fy, fz, select(s, -af, +af, -af))
         }
     ;
     #declare Fns[S][I_VU_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnZ(ux, uy, uz, fx, fy, fz, select(s, -af, +af, -af))
         }
     ;
@@ -394,32 +394,32 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VF_Y] = NoChangeFunctions[I_VF_Y];
     #declare Fns[S][I_VF_Z] = NoChangeFunctions[I_VF_Z];
     #declare Fns[S][I_VR_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnX(rx, ry, rz, fx, fy, fz, select(s, +af, -af, +af))
         }
     ;
     #declare Fns[S][I_VR_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnY(rx, ry, rz, fx, fy, fz, select(s, +af, -af, +af))
         }
     ;
     #declare Fns[S][I_VR_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnZ(rx, ry, rz, fx, fy, fz, select(s, +af, -af, +af))
         }
     ;
     #declare Fns[S][I_VU_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnX(ux, uy, uz, fx, fy, fz, select(s, +af, -af, +af))
         }
     ;
     #declare Fns[S][I_VU_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnY(ux, uy, uz, fx, fy, fz, select(s, +af, -af, +af))
         }
     ;
     #declare Fns[S][I_VU_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnZ(ux, uy, uz, fx, fy, fz, select(s, +af, -af, +af))
         }
     ;
@@ -435,17 +435,17 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
     #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
     #declare Fns[S][I_VF_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnX(fx, fy, fz, rx, ry, rz, select(s, -ar, +ar, -ar))
         }
     ;
     #declare Fns[S][I_VF_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnY(fx, fy, fz, rx, ry, rz, select(s, -ar, +ar, -ar))
         }
     ;
     #declare Fns[S][I_VF_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnZ(fx, fy, fz, rx, ry, rz, select(s, -ar, +ar, -ar))
         }
     ;
@@ -453,17 +453,17 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VR_Y] = NoChangeFunctions[I_VR_Y];
     #declare Fns[S][I_VR_Z] = NoChangeFunctions[I_VR_Z];
     #declare Fns[S][I_VU_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnX(ux, uy, uz, rx, ry, rz, select(s, -ar, +ar, -ar))
         }
     ;
     #declare Fns[S][I_VU_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnY(ux, uy, uz, rx, ry, rz, select(s, -ar, +ar, -ar))
         }
     ;
     #declare Fns[S][I_VU_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnZ(ux, uy, uz, rx, ry, rz, select(s, -ar, +ar, -ar))
         }
     ;
@@ -479,17 +479,17 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
     #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
     #declare Fns[S][I_VF_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnX(fx, fy, fz, rx, ry, rz, select(s, +ar, -ar, +ar))
         }
     ;
     #declare Fns[S][I_VF_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnY(fx, fy, fz, rx, ry, rz, select(s, +ar, -ar, +ar))
         }
     ;
     #declare Fns[S][I_VF_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnZ(fx, fy, fz, rx, ry, rz, select(s, +ar, -ar, +ar))
         }
     ;
@@ -497,17 +497,17 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VR_Y] = NoChangeFunctions[I_VR_Y];
     #declare Fns[S][I_VR_Z] = NoChangeFunctions[I_VR_Z];
     #declare Fns[S][I_VU_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnX(ux, uy, uz, rx, ry, rz, select(s, +ar, -ar, +ar))
         }
     ;
     #declare Fns[S][I_VU_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnY(ux, uy, uz, rx, ry, rz, select(s, +ar, -ar, +ar))
         }
     ;
     #declare Fns[S][I_VU_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnZ(ux, uy, uz, rx, ry, rz, select(s, +ar, -ar, +ar))
 
         }
@@ -524,32 +524,32 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
     #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
     #declare Fns[S][I_VF_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnX(fx, fy, fz, ux, uy, uz, select(s, -au, +au, -au))
         }
     ;
     #declare Fns[S][I_VF_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnY(fx, fy, fz, ux, uy, uz, select(s, -au, +au, -au))
         }
     ;
     #declare Fns[S][I_VF_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnZ(fx, fy, fz, ux, uy, uz, select(s, -au, +au, -au))
         }
     ;
     #declare Fns[S][I_VR_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnX(rx, ry, rz, ux, uy, uz, select(s, -au, +au, -au))
         }
     ;
     #declare Fns[S][I_VR_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnY(rx, ry, rz, ux, uy, uz, select(s, -au, +au, -au))
         }
     ;
     #declare Fns[S][I_VR_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnZ(rx, ry, rz, ux, uy, uz, select(s, -au, +au, -au))
         }
     ;
@@ -568,32 +568,32 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
     #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
     #declare Fns[S][I_VF_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnX(fx, fy, fz, ux, uy, uz, select(s, +au, -au, +au))
         }
     ;
     #declare Fns[S][I_VF_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnY(fx, fy, fz, ux, uy, uz, select(s, +au, -au, +au))
         }
     ;
     #declare Fns[S][I_VF_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnZ(fx, fy, fz, ux, uy, uz, select(s, +au, -au, +au))
         }
     ;
     #declare Fns[S][I_VR_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnX(rx, ry, rz, ux, uy, uz, select(s, +au, -au, +au))
         }
     ;
     #declare Fns[S][I_VR_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnY(rx, ry, rz, ux, uy, uz, select(s, +au, -au, +au))
         }
     ;
     #declare Fns[S][I_VR_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             AxisRotateFnZ(rx, ry, rz, ux, uy, uz, select(s, +au, -au, +au))
         }
     ;
@@ -621,7 +621,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
     #declare Fns[S][I_SWAP] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             select(s, 0, 1, 0)
         }
     ;
@@ -653,17 +653,17 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
     #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             (af - AngleInc)/AngleScale
         }
     ;
     #declare Fns[S][I_AA_R] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             (ar - AngleInc)/AngleScale
         }
     ;
     #declare Fns[S][I_AA_U] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             (au - AngleInc)/AngleScale
         }
     ;
@@ -685,17 +685,17 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
     #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
     #declare Fns[S][I_AA_F] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             af*AngleScale + AngleInc
         }
     ;
     #declare Fns[S][I_AA_R] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             ar*AngleScale + AngleInc
         }
     ;
     #declare Fns[S][I_AA_U] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             au*AngleScale + AngleInc
         }
     ;
@@ -725,7 +725,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
     #declare Fns[S][I_LLLL] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             l*LengthScale + LengthIncrement
         }
     ;
@@ -749,7 +749,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
     #declare Fns[S][I_LLLL] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             (l - LengthIncrement)/LengthScale
         }
     ;
@@ -779,7 +779,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             (r - RadiusIncrement)/RadiusScale
         }
     ;
@@ -803,7 +803,7 @@ which can be found in the LICENSE file.
     #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
     #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
     #declare Fns[S][I_RRRR] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, af, ar, au, l, r, s) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
             r*RadiusScale + RadiusIncrement
         }
     ;
