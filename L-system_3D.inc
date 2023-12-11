@@ -975,6 +975,7 @@ which can be found in the LICENSE file.
         #local SS = 100;
     #end // if
     #local NoOfMaterials = dimension_size(Materials, 1);
+    #local UseMaterials = (NoOfMaterials > 1);
     #local PP_Stack = array[SS];
     #local VF_Stack = array[SS];
     #local VR_Stack = array[SS];
@@ -1335,7 +1336,7 @@ which can be found in the LICENSE file.
                         #else
                             sphere {
                                 p0, Radius0
-                                #if (NoOfMaterials > 1)
+                                #if (UseMaterials)
                                     material { Materials[MaterialNo] }
                                 #end // if
                             }
@@ -1349,7 +1350,7 @@ which can be found in the LICENSE file.
                         #else
                             cylinder {
                                 p0, p1, Radius0
-                                #if (NoOfMaterials > 1)
+                                #if (UseMaterials)
                                     material { Materials[MaterialNo] }
                                 #end // if
                             }
@@ -1361,7 +1362,7 @@ which can be found in the LICENSE file.
                         #else
                             sphere {
                                 p1, Radius1
-                                #if (NoOfMaterials > 1)
+                                #if (UseMaterials)
                                     material { Materials[MaterialNo] }
                                 #end // if
                             }
