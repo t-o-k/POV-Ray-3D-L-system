@@ -136,6 +136,21 @@ which can be found in the LICENSE file.
 #declare I_LLLL = 16; // Length
 #declare I_RRRR = 17; // Radius
 
+/*
+Parameters to the functions:
+
+<x, y, z>: Position vector
+<fx, fy, fz>: Forward direction vector
+<rx, ry, rz>: Right direction vector
+<ux, uy, yz>: Up direction vector
+s: If directions of vectors should be swapped
+af: Turn angle around forward direction vector
+ar: Turn angle around right direction vector
+au: Turn angle around up direction vector
+l: Length
+r: Radius
+*/
+
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ====== 10 ====== 11 ====== 12
 
 #declare NoChangeFunctions = array[18];
