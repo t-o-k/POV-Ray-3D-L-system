@@ -1,8 +1,6 @@
 # POV-Ray-3D-L-system
 [POV-Ray](http://www.povray.org) v3.7 include file with a library for a simple 3D Lindenmayer system
 
-https://en.wikipedia.org/wiki/L-system
-
 Note that this library is work in progress, so everything has not been tested and anything may suddenly change.
 
 #### Meaning of symbols/characters in rules arrays:
@@ -38,7 +36,10 @@ The following macros must be called before the L_Transform() macro in order to e
 ( )    InsertAngleFunctions()
 ```
 
+#### Related projects and resources
 
-\- and the POV-Ray 2D L-system here:
-
-https://github.com/t-o-k/POV-Ray-2D-L-system
+* [POV-Ray 2D L-system](https://github.com/t-o-k/POV-Ray-2D-L-system) – The 2D companion library for flat fractal generation and plane turtle graphics.
+* [Wikipedia: L-system](https://wikipedia.org) – General introduction to the mathematics and history of Lindenmayer systems.
+* [Paul Bourke's L-System User Notes](http://paulbourke.net/fractals/lsys) – Excellent reference for core grammar concepts, bracketed stacks, and string scaling operations.
+* [The Algorithmic Beauty of Plants](http://algorithmicbotany.org) – The definitive book by P. Prusinkiewicz and A. Lindenmayer. Essential for advanced 3D plant structures using pitch, roll, and yaw.
+* [POV-Ray Official Documentation](http://povray.org) – For understanding scene descriptions, include file mechanics (`.inc`), and custom transformations.
