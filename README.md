@@ -28,13 +28,16 @@ f    Move along forward vector by length without drawing
 ;    Select the next material in the array of materials. If the current material is the last one, the first material is selected
 ```
 
-The following macros must be called before the L_Transform() macro in order to enable use of the symbols listed before them:
+The following macros can be called to enable use of the corresponding symbols when interpreting the L-system:
 
 ```
 > <    InsertLengthFunctions()
 # !    InsertRadiusFunctions()
 ( )    InsertAngleFunctions()
 ```
+
+#### A brief note on how it works
+The library separates L-system transformation from drawing. L_Transform() generates the symbol string from the axiom and rules, and the L_Draw...() macros interpret the resulting string and generate geometry.
 
 #### Related projects and resources
 
