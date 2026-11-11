@@ -3,7 +3,7 @@
 
 https://github.com/t-o-k/POV-Ray-L-system_3D
 
-Copyright (c) 2023 Tor Olav Kristensen, http://subcube.com
+Copyright (c) 2023-2026 Tor Olav Kristensen, http://subcube.com
 
 Use of this source code is governed by the GNU Lesser General Public License version 3,
 which can be found in the LICENSE file.
@@ -96,6 +96,9 @@ which can be found in the LICENSE file.
 #end // for
 
 // Constants
+#declare Rules[asc("@")] = "@";
+#declare Rules[asc("{")] = "{";
+#declare Rules[asc("}")] = "}";
 #declare Rules[asc("[")] = "[";
 #declare Rules[asc("]")] = "]";
 #declare Rules[asc("|")] = "|";
@@ -114,6 +117,9 @@ which can be found in the LICENSE file.
 #declare Rules[asc(")")] = ")";
 #declare Rules[asc(":")] = ":";
 #declare Rules[asc(";")] = ";";
+#declare Rules[asc(".")] = ".";
+#declare Rules[asc(",")] = ",";
+#declare Rules[asc(" ")] = " ";
 
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ====== 10 ====== 11 ====== 12
 
@@ -133,8 +139,9 @@ which can be found in the LICENSE file.
 #declare I_AA_F = 13; // Turn angle
 #declare I_AA_R = 14; // Turn angle
 #declare I_AA_U = 15; // Turn angle
-#declare I_LLLL = 16; // Length
+#declare I_LLLL = 16; // Length (distance to move when going forward)
 #declare I_RRRR = 17; // Radius
+#declare I_MATN = 18; // Material number
 
 /*
 Parameters to the functions:
@@ -149,99 +156,106 @@ ar: Turn angle around right direction vector
 au: Turn angle around up direction vector
 l: Length
 r: Radius
+m: Material number
+sl: Stack level
 */
 
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ====== 10 ====== 11 ====== 12
 
-#declare NoChangeFunctions = array[18];
+#declare NoChangeFunctions = array[19];
 #declare NoChangeFunctions[I_PP_X] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         x
     }
 ;
 #declare NoChangeFunctions[I_PP_Y] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         y
     }
 ;
 #declare NoChangeFunctions[I_PP_Z] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         z
     }
 ;
 #declare NoChangeFunctions[I_VF_X] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         fx
     }
 ;
 #declare NoChangeFunctions[I_VF_Y] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         fy
     }
 ;
 #declare NoChangeFunctions[I_VF_Z] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         fz
     }
 ;
 #declare NoChangeFunctions[I_VR_X] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         rx
     }
 ;
 #declare NoChangeFunctions[I_VR_Y] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         ry
     }
 ;
 #declare NoChangeFunctions[I_VR_Z] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         rz
     }
 ;
 #declare NoChangeFunctions[I_VU_X] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         ux
     }
 ;
 #declare NoChangeFunctions[I_VU_Y] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         uy
     }
 ;
 #declare NoChangeFunctions[I_VU_Z] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         uz
     }
 ;
 #declare NoChangeFunctions[I_SWAP] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         s
     }
 ;
 #declare NoChangeFunctions[I_AA_F] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         af
     }
 ;
 #declare NoChangeFunctions[I_AA_R] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         ar
     }
 ;
 #declare NoChangeFunctions[I_AA_U] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         au
     }
 ;
 #declare NoChangeFunctions[I_LLLL] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         l
     }
 ;
 #declare NoChangeFunctions[I_RRRR] =
-    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
         r
+    }
+;
+#declare NoChangeFunctions[I_MATN] =
+    function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
+        m
     }
 ;
 
@@ -249,422 +263,339 @@ r: Radius
 
 #macro InsertBasicFunctions(Fns)
 
-    #local S = asc("@"); // Do not move forward while "drawing"
-    #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
-    #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
-    #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
-    #declare Fns[S][I_VF_X] = NoChangeFunctions[I_VF_X];
-    #declare Fns[S][I_VF_Y] = NoChangeFunctions[I_VF_Y];
-    #declare Fns[S][I_VF_Z] = NoChangeFunctions[I_VF_Z];
-    #declare Fns[S][I_VR_X] = NoChangeFunctions[I_VR_X];
-    #declare Fns[S][I_VR_Y] = NoChangeFunctions[I_VR_Y];
-    #declare Fns[S][I_VR_Z] = NoChangeFunctions[I_VR_Z];
-    #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
-    #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
-    #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
-    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
-    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
-    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
-    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
-    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
+    InsertNoChangeFunctions(
+        Fns,
+        concat(
+            "@",  // Do not move forward while "drawing"
+            "F",  // Move forward while "drawing"
+            "f",  // Move forward while not "drawing"
+            "|",  // Turn around (Yaw +pi radians)
+            "\\", // Roll left
+            "/",  // Roll right 
+            "&",  // Pitch down
+            "^",  // Pitch up
+            "+",  // Yaw right
+            "-",  // Yaw left
+            "~"   // Swap rotation directions for roll, pitch and yaw
+        )
+    )
+
+    // #local S = asc("@"); // Do not move forward while "drawing"
 
     #local S = asc("F"); // Move forward while "drawing"
+    #undef Fns[S][I_PP_X]
     #declare Fns[S][I_PP_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             x + l*fx/f_r(fx, fy, fz)
         }
     ;
+    #undef Fns[S][I_PP_Y]
     #declare Fns[S][I_PP_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             y + l*fy/f_r(fx, fy, fz)
         }
     ;
+    #undef Fns[S][I_PP_Z]
     #declare Fns[S][I_PP_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             z + l*fz/f_r(fx, fy, fz)
         }
     ;
-    #declare Fns[S][I_VF_X] = NoChangeFunctions[I_VF_X];
-    #declare Fns[S][I_VF_Y] = NoChangeFunctions[I_VF_Y];
-    #declare Fns[S][I_VF_Z] = NoChangeFunctions[I_VF_Z];
-    #declare Fns[S][I_VR_X] = NoChangeFunctions[I_VR_X];
-    #declare Fns[S][I_VR_Y] = NoChangeFunctions[I_VR_Y];
-    #declare Fns[S][I_VR_Z] = NoChangeFunctions[I_VR_Z];
-    #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
-    #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
-    #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
-    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
-    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
-    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
-    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
-    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
 
     #local S = asc("f"); // Move forward while not "drawing"
+    #undef Fns[S][I_PP_X]
     #declare Fns[S][I_PP_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             x + l*fx/f_r(fx, fy, fz)
         }
     ;
+    #undef Fns[S][I_PP_Y]
     #declare Fns[S][I_PP_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             y + l*fy/f_r(fx, fy, fz)
         }
     ;
+    #undef Fns[S][I_PP_Z]
     #declare Fns[S][I_PP_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             z + l*fz/f_r(fx, fy, fz)
         }
     ;
-    #declare Fns[S][I_VF_X] = NoChangeFunctions[I_VF_X];
-    #declare Fns[S][I_VF_Y] = NoChangeFunctions[I_VF_Y];
-    #declare Fns[S][I_VF_Z] = NoChangeFunctions[I_VF_Z];
-    #declare Fns[S][I_VR_X] = NoChangeFunctions[I_VR_X];
-    #declare Fns[S][I_VR_Y] = NoChangeFunctions[I_VR_Y];
-    #declare Fns[S][I_VR_Z] = NoChangeFunctions[I_VR_Z];
-    #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
-    #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
-    #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
-    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
-    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
-    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
-    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
-    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
 
     #local S = asc("|"); // Turn around (Yaw +pi radians)
-    #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
-    #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
-    #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
+    #undef Fns[S][I_VF_X]
     #declare Fns[S][I_VF_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             -fx
         }
     ;
+    #undef Fns[S][I_VF_Y]
     #declare Fns[S][I_VF_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             -fy
         }
     ;
+    #undef Fns[S][I_VF_Z]
     #declare Fns[S][I_VF_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             -fz
         }
     ;
+    #undef Fns[S][I_VR_X]
     #declare Fns[S][I_VR_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             -rx
         }
     ;
+    #undef Fns[S][I_VR_Y]
     #declare Fns[S][I_VR_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             -ry
         }
     ;
+    #undef Fns[S][I_VR_Z]
     #declare Fns[S][I_VR_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             -rz
         }
     ;
-    #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
-    #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
-    #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
-    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
-    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
-    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
-    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
-    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
 
     #local S = asc("\\"); // Roll left
-    #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
-    #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
-    #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
-    #declare Fns[S][I_VF_X] = NoChangeFunctions[I_VF_X];
-    #declare Fns[S][I_VF_Y] = NoChangeFunctions[I_VF_Y];
-    #declare Fns[S][I_VF_Z] = NoChangeFunctions[I_VF_Z];
+    #undef Fns[S][I_VR_X]
     #declare Fns[S][I_VR_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnX(rx, ry, rz, fx, fy, fz, select(s, -af, +af, -af))
         }
     ;
+    #undef Fns[S][I_VR_Y]
     #declare Fns[S][I_VR_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnY(rx, ry, rz, fx, fy, fz, select(s, -af, +af, -af))
         }
     ;
+    #undef Fns[S][I_VR_Z]
     #declare Fns[S][I_VR_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnZ(rx, ry, rz, fx, fy, fz, select(s, -af, +af, -af))
         }
     ;
+    #undef Fns[S][I_VU_X]
     #declare Fns[S][I_VU_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnX(ux, uy, uz, fx, fy, fz, select(s, -af, +af, -af))
         }
     ;
+    #undef Fns[S][I_VU_Y]
     #declare Fns[S][I_VU_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnY(ux, uy, uz, fx, fy, fz, select(s, -af, +af, -af))
         }
     ;
+    #undef Fns[S][I_VU_Z]
     #declare Fns[S][I_VU_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnZ(ux, uy, uz, fx, fy, fz, select(s, -af, +af, -af))
         }
     ;
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
-    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
-    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
-    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
-    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
-    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
 
     #local S = asc("/"); // Roll right 
-    #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
-    #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
-    #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
-    #declare Fns[S][I_VF_X] = NoChangeFunctions[I_VF_X];
-    #declare Fns[S][I_VF_Y] = NoChangeFunctions[I_VF_Y];
-    #declare Fns[S][I_VF_Z] = NoChangeFunctions[I_VF_Z];
+    #undef Fns[S][I_VR_X]
     #declare Fns[S][I_VR_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnX(rx, ry, rz, fx, fy, fz, select(s, +af, -af, +af))
         }
     ;
+    #undef Fns[S][I_VR_Y]
     #declare Fns[S][I_VR_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnY(rx, ry, rz, fx, fy, fz, select(s, +af, -af, +af))
         }
     ;
+    #undef Fns[S][I_VR_Z]
     #declare Fns[S][I_VR_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnZ(rx, ry, rz, fx, fy, fz, select(s, +af, -af, +af))
         }
     ;
+    #undef Fns[S][I_VU_X]
     #declare Fns[S][I_VU_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnX(ux, uy, uz, fx, fy, fz, select(s, +af, -af, +af))
         }
     ;
+    #undef Fns[S][I_VU_Y]
     #declare Fns[S][I_VU_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnY(ux, uy, uz, fx, fy, fz, select(s, +af, -af, +af))
         }
     ;
+    #undef Fns[S][I_VU_Z]
     #declare Fns[S][I_VU_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnZ(ux, uy, uz, fx, fy, fz, select(s, +af, -af, +af))
         }
     ;
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
-    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
-    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
-    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
-    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
-    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
 
     #local S = asc("&"); // Pitch down
-    #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
-    #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
-    #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
+    #undef Fns[S][I_VF_X]
     #declare Fns[S][I_VF_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnX(fx, fy, fz, rx, ry, rz, select(s, -ar, +ar, -ar))
         }
     ;
+    #undef Fns[S][I_VF_Y]
     #declare Fns[S][I_VF_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnY(fx, fy, fz, rx, ry, rz, select(s, -ar, +ar, -ar))
         }
     ;
+    #undef Fns[S][I_VF_Z]
     #declare Fns[S][I_VF_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnZ(fx, fy, fz, rx, ry, rz, select(s, -ar, +ar, -ar))
         }
     ;
-    #declare Fns[S][I_VR_X] = NoChangeFunctions[I_VR_X];
-    #declare Fns[S][I_VR_Y] = NoChangeFunctions[I_VR_Y];
-    #declare Fns[S][I_VR_Z] = NoChangeFunctions[I_VR_Z];
+    #undef Fns[S][I_VU_X]
     #declare Fns[S][I_VU_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnX(ux, uy, uz, rx, ry, rz, select(s, -ar, +ar, -ar))
         }
     ;
+    #undef Fns[S][I_VU_Y]
     #declare Fns[S][I_VU_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnY(ux, uy, uz, rx, ry, rz, select(s, -ar, +ar, -ar))
         }
     ;
+    #undef Fns[S][I_VU_Z]
     #declare Fns[S][I_VU_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnZ(ux, uy, uz, rx, ry, rz, select(s, -ar, +ar, -ar))
         }
     ;
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
-    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
-    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
-    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
-    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
-    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
 
     #local S = asc("^"); // Pitch up
-    #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
-    #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
-    #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
+    #undef Fns[S][I_VF_X]
     #declare Fns[S][I_VF_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnX(fx, fy, fz, rx, ry, rz, select(s, +ar, -ar, +ar))
         }
     ;
+    #undef Fns[S][I_VF_Y]
     #declare Fns[S][I_VF_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnY(fx, fy, fz, rx, ry, rz, select(s, +ar, -ar, +ar))
         }
     ;
+    #undef Fns[S][I_VF_Z]
     #declare Fns[S][I_VF_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnZ(fx, fy, fz, rx, ry, rz, select(s, +ar, -ar, +ar))
         }
     ;
-    #declare Fns[S][I_VR_X] = NoChangeFunctions[I_VR_X];
-    #declare Fns[S][I_VR_Y] = NoChangeFunctions[I_VR_Y];
-    #declare Fns[S][I_VR_Z] = NoChangeFunctions[I_VR_Z];
+    #undef Fns[S][I_VU_X]
     #declare Fns[S][I_VU_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnX(ux, uy, uz, rx, ry, rz, select(s, +ar, -ar, +ar))
         }
     ;
+    #undef Fns[S][I_VU_Y]
     #declare Fns[S][I_VU_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnY(ux, uy, uz, rx, ry, rz, select(s, +ar, -ar, +ar))
         }
     ;
+    #undef Fns[S][I_VU_Z]
     #declare Fns[S][I_VU_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnZ(ux, uy, uz, rx, ry, rz, select(s, +ar, -ar, +ar))
 
         }
     ;
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
-    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
-    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
-    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
-    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
-    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
 
     #local S = asc("+"); // Yaw right
-    #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
-    #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
-    #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
+    #undef Fns[S][I_VF_X]
     #declare Fns[S][I_VF_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnX(fx, fy, fz, ux, uy, uz, select(s, -au, +au, -au))
         }
     ;
+    #undef Fns[S][I_VF_Y]
     #declare Fns[S][I_VF_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnY(fx, fy, fz, ux, uy, uz, select(s, -au, +au, -au))
         }
     ;
+    #undef Fns[S][I_VF_Z]
     #declare Fns[S][I_VF_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnZ(fx, fy, fz, ux, uy, uz, select(s, -au, +au, -au))
         }
     ;
+    #undef Fns[S][I_VR_X]
     #declare Fns[S][I_VR_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnX(rx, ry, rz, ux, uy, uz, select(s, -au, +au, -au))
         }
     ;
+    #undef Fns[S][I_VR_Y]
     #declare Fns[S][I_VR_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnY(rx, ry, rz, ux, uy, uz, select(s, -au, +au, -au))
         }
     ;
+    #undef Fns[S][I_VR_Z]
     #declare Fns[S][I_VR_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnZ(rx, ry, rz, ux, uy, uz, select(s, -au, +au, -au))
         }
     ;
-    #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
-    #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
-    #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
-    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
-    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
-    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
-    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
-    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
 
     #local S = asc("-"); // Yaw left
-    #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
-    #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
-    #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
+    #undef Fns[S][I_VF_X]
     #declare Fns[S][I_VF_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnX(fx, fy, fz, ux, uy, uz, select(s, +au, -au, +au))
         }
     ;
+    #undef Fns[S][I_VF_Y]
     #declare Fns[S][I_VF_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnY(fx, fy, fz, ux, uy, uz, select(s, +au, -au, +au))
         }
     ;
+    #undef Fns[S][I_VF_Z]
     #declare Fns[S][I_VF_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnZ(fx, fy, fz, ux, uy, uz, select(s, +au, -au, +au))
         }
     ;
+    #undef Fns[S][I_VR_X]
     #declare Fns[S][I_VR_X] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnX(rx, ry, rz, ux, uy, uz, select(s, +au, -au, +au))
         }
     ;
+    #undef Fns[S][I_VR_Y]
     #declare Fns[S][I_VR_Y] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnY(rx, ry, rz, ux, uy, uz, select(s, +au, -au, +au))
         }
     ;
+    #undef Fns[S][I_VR_Z]
     #declare Fns[S][I_VR_Z] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             AxisRotateFnZ(rx, ry, rz, ux, uy, uz, select(s, +au, -au, +au))
         }
     ;
-    #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
-    #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
-    #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
-    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
-    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
-    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
-    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
-    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
 
     #local S = asc("~"); // Swap rotation directions for roll, pitch and yaw
-    #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
-    #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
-    #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
-    #declare Fns[S][I_VF_X] = NoChangeFunctions[I_VF_X];
-    #declare Fns[S][I_VF_Y] = NoChangeFunctions[I_VF_Y];
-    #declare Fns[S][I_VF_Z] = NoChangeFunctions[I_VF_Z];
-    #declare Fns[S][I_VR_X] = NoChangeFunctions[I_VR_X];
-    #declare Fns[S][I_VR_Y] = NoChangeFunctions[I_VR_Y];
-    #declare Fns[S][I_VR_Z] = NoChangeFunctions[I_VR_Z];
-    #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
-    #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
-    #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
+    #undef Fns[S][I_SWAP]
     #declare Fns[S][I_SWAP] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             select(s, 0, 1, 0)
         }
     ;
-    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
-    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
-    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
-    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
-    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
 
 #end // macro InsertBasicFunctions
 
@@ -673,177 +604,142 @@ r: Radius
 
     #local AngleInc = radians(AngleIncrement);
 
+    InsertNoChangeFunctions(
+        Fns,
+        concat(
+            "(",
+            ")"
+        )
+    )
+
     #local S = asc("(");
-    #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
-    #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
-    #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
-    #declare Fns[S][I_VF_X] = NoChangeFunctions[I_VF_X];
-    #declare Fns[S][I_VF_Y] = NoChangeFunctions[I_VF_Y];
-    #declare Fns[S][I_VF_Z] = NoChangeFunctions[I_VF_Z];
-    #declare Fns[S][I_VR_X] = NoChangeFunctions[I_VR_X];
-    #declare Fns[S][I_VR_Y] = NoChangeFunctions[I_VR_Y];
-    #declare Fns[S][I_VR_Z] = NoChangeFunctions[I_VR_Z];
-    #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
-    #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
-    #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
+    #undef Fns[S][I_AA_F]
     #declare Fns[S][I_AA_F] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             (af - AngleInc)/AngleScale
         }
     ;
+    #undef Fns[S][I_AA_R]
     #declare Fns[S][I_AA_R] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             (ar - AngleInc)/AngleScale
         }
     ;
+    #undef Fns[S][I_AA_U]
     #declare Fns[S][I_AA_U] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             (au - AngleInc)/AngleScale
         }
     ;
-    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
-    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
 
     #local S = asc(")");
-    #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
-    #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
-    #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
-    #declare Fns[S][I_VF_X] = NoChangeFunctions[I_VF_X];
-    #declare Fns[S][I_VF_Y] = NoChangeFunctions[I_VF_Y];
-    #declare Fns[S][I_VF_Z] = NoChangeFunctions[I_VF_Z];
-    #declare Fns[S][I_VR_X] = NoChangeFunctions[I_VR_X];
-    #declare Fns[S][I_VR_Y] = NoChangeFunctions[I_VR_Y];
-    #declare Fns[S][I_VR_Z] = NoChangeFunctions[I_VR_Z];
-    #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
-    #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
-    #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
+    #undef Fns[S][I_AA_F]
     #declare Fns[S][I_AA_F] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             af*AngleScale + AngleInc
         }
     ;
+    #undef Fns[S][I_AA_R]
     #declare Fns[S][I_AA_R] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             ar*AngleScale + AngleInc
         }
     ;
+    #undef Fns[S][I_AA_U]
     #declare Fns[S][I_AA_U] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             au*AngleScale + AngleInc
         }
     ;
-    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
-    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
 
 #end // macro InsertAngleFunctions
 
 
 #macro InsertLengthFunctions(Fns, LengthScale, LengthIncrement)
 
-    #local S = asc(">");
-    #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
-    #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
-    #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
-    #declare Fns[S][I_VF_X] = NoChangeFunctions[I_VF_X];
-    #declare Fns[S][I_VF_Y] = NoChangeFunctions[I_VF_Y];
-    #declare Fns[S][I_VF_Z] = NoChangeFunctions[I_VF_Z];
-    #declare Fns[S][I_VR_X] = NoChangeFunctions[I_VR_X];
-    #declare Fns[S][I_VR_Y] = NoChangeFunctions[I_VR_Y];
-    #declare Fns[S][I_VR_Z] = NoChangeFunctions[I_VR_Z];
-    #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
-    #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
-    #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
-    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
-    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
-    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
-    #declare Fns[S][I_LLLL] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
-            l*LengthScale + LengthIncrement
-        }
-    ;
-    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
+    InsertNoChangeFunctions(
+        Fns,
+        concat(
+            "<",
+            ">"
+        )
+    )
 
     #local S = asc("<");
-    #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
-    #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
-    #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
-    #declare Fns[S][I_VF_X] = NoChangeFunctions[I_VF_X];
-    #declare Fns[S][I_VF_Y] = NoChangeFunctions[I_VF_Y];
-    #declare Fns[S][I_VF_Z] = NoChangeFunctions[I_VF_Z];
-    #declare Fns[S][I_VR_X] = NoChangeFunctions[I_VR_X];
-    #declare Fns[S][I_VR_Y] = NoChangeFunctions[I_VR_Y];
-    #declare Fns[S][I_VR_Z] = NoChangeFunctions[I_VR_Z];
-    #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
-    #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
-    #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
-    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
-    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
-    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
+    #undef Fns[S][I_LLLL]
     #declare Fns[S][I_LLLL] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             (l - LengthIncrement)/LengthScale
         }
     ;
-    #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
+
+    #local S = asc(">");
+    #undef Fns[S][I_LLLL]
+    #declare Fns[S][I_LLLL] =
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
+            l*LengthScale + LengthIncrement
+        }
+    ;
 
 #end // macro InsertLengthFunctions
 
 
 #macro InsertRadiusFunctions(Fns, RadiusScale, RadiusIncrement)
 
+    InsertNoChangeFunctions(
+        Fns,
+        concat(
+            "!",
+            "#"
+        )
+    )
+
     #local S = asc("!");
-    #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
-    #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
-    #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
-    #declare Fns[S][I_VF_X] = NoChangeFunctions[I_VF_X];
-    #declare Fns[S][I_VF_Y] = NoChangeFunctions[I_VF_Y];
-    #declare Fns[S][I_VF_Z] = NoChangeFunctions[I_VF_Z];
-    #declare Fns[S][I_VR_X] = NoChangeFunctions[I_VR_X];
-    #declare Fns[S][I_VR_Y] = NoChangeFunctions[I_VR_Y];
-    #declare Fns[S][I_VR_Z] = NoChangeFunctions[I_VR_Z];
-    #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
-    #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
-    #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
-    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
-    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
-    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
-    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
+    #undef Fns[S][I_RRRR]
     #declare Fns[S][I_RRRR] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             (r - RadiusIncrement)/RadiusScale
         }
     ;
 
     #local S = asc("#");
-    #declare Fns[S][I_PP_X] = NoChangeFunctions[I_PP_X];
-    #declare Fns[S][I_PP_Y] = NoChangeFunctions[I_PP_Y];
-    #declare Fns[S][I_PP_Z] = NoChangeFunctions[I_PP_Z];
-    #declare Fns[S][I_VF_X] = NoChangeFunctions[I_VF_X];
-    #declare Fns[S][I_VF_Y] = NoChangeFunctions[I_VF_Y];
-    #declare Fns[S][I_VF_Z] = NoChangeFunctions[I_VF_Z];
-    #declare Fns[S][I_VR_X] = NoChangeFunctions[I_VR_X];
-    #declare Fns[S][I_VR_Y] = NoChangeFunctions[I_VR_Y];
-    #declare Fns[S][I_VR_Z] = NoChangeFunctions[I_VR_Z];
-    #declare Fns[S][I_VU_X] = NoChangeFunctions[I_VU_X];
-    #declare Fns[S][I_VU_Y] = NoChangeFunctions[I_VU_Y];
-    #declare Fns[S][I_VU_Z] = NoChangeFunctions[I_VU_Z];
-    #declare Fns[S][I_SWAP] = NoChangeFunctions[I_SWAP];
-    #declare Fns[S][I_AA_F] = NoChangeFunctions[I_AA_F];
-    #declare Fns[S][I_AA_R] = NoChangeFunctions[I_AA_R];
-    #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
-    #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
+    #undef Fns[S][I_RRRR]
     #declare Fns[S][I_RRRR] =
-        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r) {
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
             r*RadiusScale + RadiusIncrement
         }
     ;
 
 #end // macro InsertRadiusFunctions
+
+
+#macro InsertMaterialsFunctions(Fns, NoOfMaterials)
+
+    InsertNoChangeFunctions(
+        Fns,
+        concat(
+            ":",
+            ";"
+        )
+    )
+
+    #local S = asc(":");
+    #undef Fns[S][I_MATN]
+    #declare Fns[S][I_MATN] =
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
+            0
+        }
+    ;
+
+    #local S = asc(";");
+    #undef Fns[S][I_MATN]
+    #declare Fns[S][I_MATN] =
+        function(x, y, z, fx, fy, fz, rx, ry, rz, ux, uy, uz, s, af, ar, au, l, r, m, sl) {
+            mod(m + 1, NoOfMaterials)
+        }
+    ;
+
+#end // macro InsertMaterialsFunctions
 
 
 #macro InsertNoChangeFunctions(Fns, Symbols)
@@ -869,6 +765,7 @@ r: Radius
         #declare Fns[S][I_AA_U] = NoChangeFunctions[I_AA_U];
         #declare Fns[S][I_LLLL] = NoChangeFunctions[I_LLLL];
         #declare Fns[S][I_RRRR] = NoChangeFunctions[I_RRRR];
+        #declare Fns[S][I_MATN] = NoChangeFunctions[I_MATN];
     #end // for
 
 #end // macro InsertNoChangeFunctions
@@ -963,7 +860,7 @@ r: Radius
 #end // macro L_Transform_DebugMore
 
 
-#macro _FunctionEval(Fn, pP, vF, vR, vU, Swap, AngleF, AngleR, AngleU, Length, Radius)
+#macro _FunctionEval(Fn, pP, vF, vR, vU, Swap, AngleF, AngleR, AngleU, Length, Radius, MatNo, StackLvl)
 
     Fn(
         pP.x, pP.y, pP.z,
@@ -975,22 +872,32 @@ r: Radius
         AngleR,
         AngleU,
         Length,
-        Radius
+        Radius,
+        MatNo,
+        StackLvl
     )
 
 #end // macro _FunctionEval
 
 
-#macro L_Draw(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials, Spheres, Cylinders)
+#macro L_Draw(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials, Spheres, Cylinders, Triangles)
 
     #local Nil = 1e-6;
+    #local NoOfMaterials = dimension_size(Materials, 1);
+    #local UseMaterials = (NoOfMaterials > 1);
+    #local T_MaterialNo = 0;
+    #local T_MaxNoOfVertices = 100;  // Maximum number of vertices for triangles
+    #local T_Vertices = array[T_MaxNoOfVertices];  // Vertices for triangles
+    #local T_VertexCnt = 0;  // Number Of vertices for triangles
+    #local T_SS = 100;  // Stack size for triangles
+    #local TT_MaterialNos = array[T_SS];
+    #local TT_Vertices = array[T_SS];
+    #local TT_VertexCnts = array[T_SS];
     #if (StackSize > 0)
         #local SS = StackSize;
     #else
         #local SS = 100;
     #end // if
-    #local NoOfMaterials = dimension_size(Materials, 1);
-    #local UseMaterials = (NoOfMaterials > 1);
     #local PP_Stack = array[SS];
     #local VF_Stack = array[SS];
     #local VR_Stack = array[SS];
@@ -1034,13 +941,69 @@ r: Radius
     #local Length0 = Length;
     // Initial radius
     #local Radius0 = Radius;
-    // Initial Material no.
-    #local MaterialNo = 0;
+    // Initial material number
+    #local MaterialNo0 = 0;
+    #local T_SP = -1;
     #local SP = -1;
     #for (I, 1, strlen(Symbols))
         #local Sym = substr(Symbols, I, 1);
         #local S = asc(Sym);
         #switch (S)
+            #case (asc(".")) // Record current position as a new triangle vertex
+                #local T_Vertices[T_VertexCnt] = p0;
+                #local T_VertexCnt = T_VertexCnt + 1;
+                #break
+            #case (asc(",")) // Re-record triangle vertex number 1 as a new triangle vertex
+                #if (T_VertexCnt < 2)
+                    #error "Vertex number 1 for triangles has not been recorded yet"
+                #end // if
+                #local T_Vertices[T_VertexCnt] = T_Vertices[1];
+                #local T_VertexCnt = T_VertexCnt + 1;
+                #break
+            #case (asc("{")) // Push triangles
+                #if (T_SP >= T_SS - 1)
+                    #error "The triangle stack is full"
+                #end // if
+                #local T_SP = T_SP + 1;
+                #local TT_MaterialNos[T_SP] = T_MaterialNo;
+                #local TT_Vertices[T_SP] = T_Vertices;
+                #local TT_VertexCnts[T_SP] = T_VertexCnt;
+                #local T_MaterialNo = MaterialNo0;
+                #local T_VertexCnt = 0;
+                #local T_Vertices[T_VertexCnt] = p0;
+                #local T_VertexCnt = T_VertexCnt + 1;
+                #break
+            #case (asc("}")) // Pop triangles
+                #if (T_SP < 0)
+                    #error "The triangle stack is empty"
+                #end // if
+                #if (Triangles)
+                    #if (1 < T_VertexCnt)
+                        #if (T_VertexCnt < 3)
+                            #error "Too few vertices for triangles"
+                        #end // if
+                        #local pCommon = T_Vertices[0];
+                        #for (J, 1, T_VertexCnt - 2)
+                            #local pA = T_Vertices[J];
+                            #local pB = T_Vertices[J+1];
+                            #if (vlength(vcross(pA - pCommon, pB - pCommon)) <= Nil)
+                                #warning "Degenerate triangle"
+                            #else
+                                triangle {
+                                    pCommon, pA, pB
+                                    #if (UseMaterials)
+                                        material { Materials[T_MaterialNo] }
+                                    #end // if
+                                }
+                            #end // if
+                        #end // for
+                    #end // if
+                #end // if
+                #local T_MaterialNo = TT_MaterialNos[T_SP];
+                #local T_Vertices = TT_Vertices[T_SP];
+                #local T_VertexCnt = TT_VertexCnts[T_SP];
+                #local T_SP = T_SP - 1;
+                #break
             #case (asc("[")) // Push
                 #if (SP >= SS - 1)
                     #error "The stack is full"
@@ -1056,7 +1019,7 @@ r: Radius
                 #local AU_Stack[SP] = AngleU0;
                 #local LL_Stack[SP] = Length0;
                 #local RR_Stack[SP] = Radius0;
-                #local MM_Stack[SP] = MaterialNo;
+                #local MM_Stack[SP] = MaterialNo0;
                 #break
             #case (asc("]")) // Pop
                 #if (SP < 0)
@@ -1072,16 +1035,11 @@ r: Radius
                 #local AngleU0 = AU_Stack[SP];
                 #local Length0 = LL_Stack[SP];
                 #local Radius0 = RR_Stack[SP];
-                #local MaterialNo = MM_Stack[SP];
+                #local MaterialNo0 = MM_Stack[SP];
                 #local SP = SP - 1;
                 #break
-            #case (asc(":")) // 
-                #local MaterialNo = 0;
-                #break
-            #case (asc(";")) // 
-                #local MaterialNo = mod(MaterialNo + 1, NoOfMaterials);
-                #break
             #else
+                #local StackLevel = SP + 1;
                 #local p1 =
                     <
                         _FunctionEval(
@@ -1095,7 +1053,9 @@ r: Radius
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0
+                            Radius0,
+                            MaterialNo0,
+                            StackLevel
                         ),
                         _FunctionEval(
                             Fns[S][I_PP_Y],
@@ -1108,7 +1068,9 @@ r: Radius
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0
+                            Radius0,
+                            MaterialNo0,
+                            StackLevel
                         ),
                         _FunctionEval(
                             Fns[S][I_PP_Z],
@@ -1121,7 +1083,9 @@ r: Radius
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0
+                            Radius0,
+                            MaterialNo0,
+                            StackLevel
                         )
                     >
                 ;
@@ -1138,7 +1102,9 @@ r: Radius
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0
+                            Radius0,
+                            MaterialNo0,
+                            StackLevel
                         ),
                         _FunctionEval(
                             Fns[S][I_VF_Y],
@@ -1151,7 +1117,9 @@ r: Radius
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0
+                            Radius0,
+                            MaterialNo0,
+                            StackLevel
                         ),
                         _FunctionEval(
                             Fns[S][I_VF_Z],
@@ -1164,7 +1132,9 @@ r: Radius
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0
+                            Radius0,
+                            MaterialNo0,
+                            StackLevel
                         )
                     >
                 ;
@@ -1181,7 +1151,9 @@ r: Radius
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0
+                            Radius0,
+                            MaterialNo0,
+                            StackLevel
                         ),
                         _FunctionEval(
                             Fns[S][I_VR_Y],
@@ -1194,7 +1166,9 @@ r: Radius
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0
+                            Radius0,
+                            MaterialNo0,
+                            StackLevel
                         ),
                         _FunctionEval(
                             Fns[S][I_VR_Z],
@@ -1207,7 +1181,9 @@ r: Radius
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0
+                            Radius0,
+                            MaterialNo0,
+                            StackLevel
                         )
                     >
                 ;
@@ -1224,7 +1200,9 @@ r: Radius
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0
+                            Radius0,
+                            MaterialNo0,
+                            StackLevel
                         ),
                         _FunctionEval(
                             Fns[S][I_VU_Y],
@@ -1237,7 +1215,9 @@ r: Radius
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0
+                            Radius0,
+                            MaterialNo0,
+                            StackLevel
                         ),
                         _FunctionEval(
                             Fns[S][I_VU_Z],
@@ -1250,7 +1230,9 @@ r: Radius
                             AngleR0,
                             AngleU0,
                             Length0,
-                            Radius0
+                            Radius0,
+                            MaterialNo0,
+                            StackLevel
                         )
                     >
                 ;
@@ -1266,7 +1248,9 @@ r: Radius
                         AngleR0,
                         AngleU0,
                         Length0,
-                        Radius0
+                        Radius0,
+                        MaterialNo0,
+                        StackLevel
                     )
                 ;
                 #local AngleF1 =
@@ -1281,7 +1265,9 @@ r: Radius
                         AngleR0,
                         AngleU0,
                         Length0,
-                        Radius0
+                        Radius0,
+                        MaterialNo0,
+                        StackLevel
                     )
                 ;
                 #local AngleR1 =
@@ -1296,7 +1282,9 @@ r: Radius
                         AngleR0,
                         AngleU0,
                         Length0,
-                        Radius0
+                        Radius0,
+                        MaterialNo0,
+                        StackLevel
                     )
                 ;
                 #local AngleU1 =
@@ -1311,7 +1299,9 @@ r: Radius
                         AngleR0,
                         AngleU0,
                         Length0,
-                        Radius0
+                        Radius0,
+                        MaterialNo0,
+                        StackLevel
                     )
                 ;
                 #local Length1 =
@@ -1326,7 +1316,9 @@ r: Radius
                         AngleR0,
                         AngleU0,
                         Length0,
-                        Radius0
+                        Radius0,
+                        MaterialNo0,
+                        StackLevel
                     )
                 ;
                 #local Radius1 =
@@ -1341,7 +1333,26 @@ r: Radius
                         AngleR0,
                         AngleU0,
                         Length0,
-                        Radius0
+                        Radius0,
+                        MaterialNo0,
+                        StackLevel
+                    )
+                ;
+                #local MaterialNo1 =
+                    _FunctionEval(
+                        Fns[S][I_MATN],
+                        p0,
+                        vF0,                                        
+                        vR0,
+                        vU0,
+                        Swap0,
+                        AngleF0,
+                        AngleR0,
+                        AngleU0,
+                        Length0,
+                        Radius0,
+                        MaterialNo0,
+                        StackLevel
                     )
                 ;
                 #if (S = asc("@"))
@@ -1352,7 +1363,7 @@ r: Radius
                             sphere {
                                 p0, Radius0
                                 #if (UseMaterials)
-                                    material { Materials[MaterialNo] }
+                                    material { Materials[MaterialNo0] }
                                 #end // if
                             }
                         #end // if
@@ -1366,7 +1377,7 @@ r: Radius
                             cylinder {
                                 p0, p1, Radius0
                                 #if (UseMaterials)
-                                    material { Materials[MaterialNo] }
+                                    material { Materials[MaterialNo0] }
                                 #end // if
                             }
                         #end // if
@@ -1378,7 +1389,7 @@ r: Radius
                             sphere {
                                 p1, Radius1
                                 #if (UseMaterials)
-                                    material { Materials[MaterialNo] }
+                                    material { Materials[MaterialNo0] }
                                 #end // if
                             }
                         #end // if
@@ -1394,6 +1405,7 @@ r: Radius
                 #local AngleU0 = AngleU1;
                 #local Length0 = Length1;
                 #local Radius0 = Radius1;
+                #local MaterialNo0 = MaterialNo1;
         #end // switch
     #end // for
 
@@ -1404,7 +1416,7 @@ r: Radius
 
     L_Draw(
         Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials,
-        true, false
+        true, false, false
     )
 
 #end // macro L_DrawSpheres
@@ -1414,27 +1426,66 @@ r: Radius
 
     L_Draw(
         Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials,
-        false, true
+        false, true, false
     )
 
 #end // macro L_DrawCylinders
+
+
+#macro L_DrawTriangles(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials)
+
+    L_Draw(
+       Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials,
+       false, false, true
+    )
+
+#end // macro L_DrawTriangles
 
 
 #macro L_DrawSpheresAndCylinders(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials)
 
     L_Draw(
         Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials,
-        true, true
+        true, true, false
     )
 
 #end // macro L_DrawSpheresAndCylinders
 
+
+#macro L_DrawSpheresAndTriangles(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials)
+
+    L_Draw(
+        Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials,
+        true, false, true
+    )
+
+#end // macro L_DrawSpheresAndTriangles
+
+
+#macro L_DrawCylindersAndTriangles(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials)
+
+    L_Draw(
+        Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials,
+        false, true, true
+    )
+
+#end // macro L_DrawCylindersAndTriangles
+
+
+#macro L_DrawAll(Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials)
+
+    L_Draw(
+        Fns, Symbols, StackSize, pStart, vF, vR, vU, Angle, Length, Radius, Materials,
+        true, true, true
+    )
+
+#end // macro L_DrawAll
+
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ====== 10 ====== 11 ====== 12
 
-#declare Functions = array[MaxNoOfSymbols][18];
+#declare Functions = array[MaxNoOfSymbols][19];
 
 InsertBasicFunctions(Functions)
-
 
 #declare NoMaterials = array[1] { material { } };
 
