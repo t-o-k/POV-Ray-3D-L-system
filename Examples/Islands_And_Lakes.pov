@@ -1,14 +1,14 @@
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ======= 10
 /*
 
-https://github.com/t-o-k/POV-Ray-L-system
+https://github.com/t-o-k/POV-Ray-3D-L-system
 
 2D version:
     "Combination of islands and lakes" from Przemyslaw Prusinkiewicz & Aristid Lindenmayer's
     "The Algorithmic Beauty of Plants", Figure 1.8 on page 9
 
 3D version:
-    From Laurens Lapré's "Lparser", BOP05.LS. Modified by "Droj" and Tor Olav Kristensen
+    From Laurens Laprï¿½'s "Lparser", BOP05.LS. Modified by "Droj" and Tor Olav Kristensen
 
 */
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ======= 10
@@ -19,7 +19,6 @@ https://github.com/t-o-k/POV-Ray-L-system
 #include "colors.inc"
 
 global_settings { assumed_gamma 1.0 }
-
 
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ======= 10
 
@@ -44,8 +43,10 @@ InsertNoChangeFunctions(Functions, "X")
 
 #declare C = 7/8;
 
-#declare FourMaterials =
-    array[4] {
+#declare NoOfMaterials = 4;
+
+#declare Materials =
+    array[NoOfMaterials] {
         material {
             texture {
                 pigment { color (1 - C)*White + C*Red }
@@ -68,6 +69,8 @@ InsertNoChangeFunctions(Functions, "X")
         }
     }
 
+InsertMaterialsFunctions(Functions, NoOfMaterials)
+
 union {
     L_Draw(
         Functions,
@@ -78,7 +81,8 @@ union {
         InitialAngle,
         InitialLength,
         InitialRadius,
-        FourMaterials,
+        Materials,
+        true,
         true,
         true
     )

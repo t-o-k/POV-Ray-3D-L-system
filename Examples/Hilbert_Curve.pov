@@ -3,7 +3,7 @@
 
 https://github.com/t-o-k/POV-Ray-3D-L-system
 
-Copyright (c) 2023 Tor Olav Kristensen, http://subcube.com
+Copyright (c) 2023-2026 Tor Olav Kristensen, http://subcube.com
 
 Use of this source code is governed by the GNU Lesser General Public License version 3,
 which can be found in the LICENSE file.
@@ -20,7 +20,6 @@ global_settings { assumed_gamma 1.0 }
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ======= 10
 
 // Constants
-#declare Rules[asc("@")] = "@";
 #declare Rules[asc("F")] = "F";
 #declare Rules[asc("f")] = "f";
 
@@ -58,6 +57,7 @@ union {
         InitialRadius,
         NoMaterials,
         true,
+        true,
         true
     )
     pigment { color rgb <0.1, 0.1, 0.2> }
@@ -80,4 +80,3 @@ camera {
 }
 
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ======= 10
-
