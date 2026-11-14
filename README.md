@@ -19,8 +19,8 @@ f    Move along forward vector by length without drawing
 ~    Swap rotation directions for roll, pitch and yaw
 [    Push current drawing state onto the stack
 ]    Pop current drawing state from the stack
-{    Push current triangle state onto the triangle stack
-}    Pop triangle state from the triangle stack and generate triangles if enabled
+{    Start a new triangle group and push it onto the triangle stack
+}    Pop the active triangle group from the triangle stack and generate triangles if enabled
 .    Record current position as a triangle vertex
 ,    Record the second vertex again as a triangle vertex (useful for closing a polygonal loop around the first vertex)
 >    Increase the cylinder length by multiplying by a scale factor and/or adding an increment
