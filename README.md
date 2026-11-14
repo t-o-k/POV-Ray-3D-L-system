@@ -61,13 +61,14 @@ L_DrawAll()
 
 Triangle groups are defined using `{` and `}`. The triangle state has its own stack, separate from the drawing state stack used by `[` and `]`.
 
-This library uses an **implicit first vertex** convention for triangle generation (matching the earlier `pfg` notation in *The Algorithmic Beauty of Plants*):
+This library uses an **implicit first vertex** convention for triangle generation (matching the earlier `pfg` notation in *The Algorithmic Beauty of Plants*). Triangles are generated as a **triangle fan** radiating from this first vertex:
 
-* **`{` (Start triangle group):** Pushes a new state onto the triangle stack and automatically records the turtle's current position as the **first vertex**.
-* **`.` (Record vertex):** Appends the turtle's current position as a subsequent vertex to the active triangle group.
-* **`}` (Close triangle group):** Pops the active state from the triangle stack and generates triangles if at least 3 vertices have been recorded (groups with fewer than 3 vertices are discarded).
+* **`{` (Start triangle group / fan center):** Pushes a new state onto the triangle stack and automatically records the turtle's current position as the **first vertex** (the central hub of the triangle fan).
+* **`.` (Record perimeter vertex):** Appends the turtle's current position as a subsequent vertex along the outer edge of the triangle fan.
+* **`,` (Close fan loop):** Re-records the second vertex to cleanly close a polygonal loop around the first vertex.
+* **`}` (Close triangle group):** Pops the active state from the triangle stack and generates the triangle fan if at least 3 vertices have been recorded (groups with fewer than 3 vertices are discarded).
 
-**Note:** Because `{` registers the first vertex automatically, do not place a `.` immediately after `{` unless an intentional duplicate vertex is desired. For example, a single triangle requires `{` followed by only two `.` symbols before `}`.
+**Note:** Because `{` registers the central vertex automatically, do not place a `.` immediately after `{` unless an intentional duplicate vertex is desired. For example, a single triangle requires `{` followed by only two `.` symbols before `}`.
 
 #### A brief note on how it works
 
