@@ -59,6 +59,14 @@ L_DrawAll()
 
 Triangle groups are defined using `{` and `}`. The triangle state has its own stack, separate from the drawing state stack used by `[` and `]`.
 
+This library uses an **implicit first vertex** convention for triangle generation (matching the earlier `pfg` notation in *The Algorithmic Beauty of Plants*):
+
+* **`{` (Start triangle group):** Pushes a new state onto the triangle stack and automatically records the turtle's current position as the **first vertex**.
+* **`.` (Record vertex):** Appends the turtle's current position as a subsequent vertex to the active triangle group.
+* **`}` (Close triangle group):** Pops the active state from the triangle stack and generates triangles if at least 3 vertices have been recorded (groups with fewer than 3 vertices are discarded).
+
+**Note:** Because `{` registers the first vertex automatically, do not place a `.` immediately after `{` unless an intentional duplicate vertex is desired. For example, a single triangle requires `{` followed by only two `.` symbols before `}`.
+
 #### A brief note on how it works
 
 The library separates L-system transformation from drawing. L_Transform() generates the symbol string from the axiom and rules, and the L_Draw...() macros interpret the resulting string and generate geometry.
