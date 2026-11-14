@@ -34,6 +34,8 @@ f    Move along forward vector by length without drawing
 ;    Select the next material in the array of materials. If the current material is the last one, the first material is selected
 ```
 
+**Note on escaping `\`:** In POV-Ray SDL string literals, the backslash (`\`) acts as an escape character. Therefore, you must write `\\` in your axiom and rule strings to represent a single `\` (roll left) symbol.
+
 The following macros can be called to enable use of the corresponding symbols when interpreting the L-system:
 
 ```
