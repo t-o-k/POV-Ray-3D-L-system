@@ -88,38 +88,55 @@ which can be found in the LICENSE file.
 
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ====== 10 ====== 11 ====== 12
 
-#declare MaxNoOfSymbols = 128; // No of characters in the ASCII table
+#declare _MAX_NO_OF_SYMBOLS = 128; // No of characters in the ASCII table
 
-#declare Rules = array[MaxNoOfSymbols];
-#for (I, 0, MaxNoOfSymbols - 1)
-    #declare Rules[I] = "";
+#declare RULES = array[_MAX_NO_OF_SYMBOLS];
+#declare RULES[0] = "";
+
+/*
+Warning / Uncaught edge cases for the macro AddRule(Character, Symbols):
+
+1. Silent Space-Rule Overwrite under 'charset ascii':
+    When global_settings { charset ascii } is active (POV-Ray 3.7 default), 
+    POV-Ray's lexer replaces any non-ASCII byte (> 127) in a string literal
+    with a space (" ", ASCII 32) BEFORE this macro runs. If your file is
+    saved in a 1-byte encoding (e.g. Windows-1252 / ISO-8859-1) and you pass
+    a single extended character (e.g. "ø"), POV-Ray turns it into " " and
+    this macro will SILENTLY OVERWRITE the rule for the space character.
+
+2. Unvalidated 'Symbols' Replacement String:
+    This macro only validates 'Character', not 'Symbols':
+    - Including chr(0) inside 'Symbols' will silently truncate the string at
+      the null byte.
+    - Including non-ASCII characters in 'Symbols' will either be silently
+      converted to spaces (under 'charset ascii') or expand into unmapped
+      bytes >= 128 (under 'charset utf8' / 'sys') that fail during rule lookup.
+*/
+
+#macro AddRule(Character, Symbols)
+
+    #local S = asc(Character);
+    #if (S = 0)
+        #error "Character can not be empty or the ASCII NULL character"
+    #end // if
+    #if (strlen(Character) > 1)
+        #debug concat("Character: '", Character, "'\n")
+        #error "Character is not a string with 1 character"
+    #end // if
+    #if (_MAX_NO_OF_SYMBOLS <= S)
+        #debug concat("Character: '", Character, "' byte value: ", str(S, 0, 0), "\n")
+        #error "Character is not a 7-bit ASCII character (1-127)"
+    #end // if
+
+    #declare RULES[S] = Symbols;
+
+#end // macro AddRule
+
+
+// Declare the remaining symbols as constants
+#for (I, 1, _MAX_NO_OF_SYMBOLS - 1)
+    AddRule(chr(I), chr(I))
 #end // for
-
-// Constants
-#declare Rules[asc("@")] = "@";
-#declare Rules[asc("{")] = "{";
-#declare Rules[asc("}")] = "}";
-#declare Rules[asc("[")] = "[";
-#declare Rules[asc("]")] = "]";
-#declare Rules[asc("|")] = "|";
-#declare Rules[asc("\\")] = "\\";
-#declare Rules[asc("/")] = "/";
-#declare Rules[asc("&")] = "&";
-#declare Rules[asc("^")] = "^";
-#declare Rules[asc("+")] = "+";
-#declare Rules[asc("-")] = "-";
-#declare Rules[asc("~")] = "~";
-#declare Rules[asc("#")] = "#";
-#declare Rules[asc("!")] = "!";
-#declare Rules[asc("<")] = "<";
-#declare Rules[asc(">")] = ">";
-#declare Rules[asc("(")] = "(";
-#declare Rules[asc(")")] = ")";
-#declare Rules[asc(":")] = ":";
-#declare Rules[asc(";")] = ";";
-#declare Rules[asc(".")] = ".";
-#declare Rules[asc(",")] = ",";
-#declare Rules[asc(" ")] = " ";
 
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ====== 10 ====== 11 ====== 12
 
@@ -772,14 +789,14 @@ sl: Stack level
 
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ====== 10 ====== 11 ====== 12
 
-#macro L_Transform(AxiomSymbols, L_Rules, NoOfIterations)
+#macro L_Transform(AxiomSymbols, NoOfIterations)
 
     #local AllSymbols = AxiomSymbols;
     #for (I, 1, NoOfIterations)
         #local IterSymbols = "";
         #for (J, 1, strlen(AllSymbols))
             #local Sym = substr(AllSymbols, J, 1);
-            #local ProdSymbols = L_Rules[asc(Sym)];
+            #local ProdSymbols = RULES[asc(Sym)];
             #if (strlen(ProdSymbols) > 0)
                 #local IterSymbols = concat(IterSymbols, ProdSymbols);
             #end // if
@@ -792,7 +809,7 @@ sl: Stack level
 #end // macro L_Transform
 
 
-#macro L_Transform_Debug(AxiomSymbols, L_Rules, NoOfIterations)
+#macro L_Transform_Debug(AxiomSymbols, NoOfIterations)
 
     #debug "\n"
     #local I = 0;
@@ -806,7 +823,7 @@ sl: Stack level
         #local IterSymbols = "";
         #for (J, 1, strlen(AllSymbols))
             #local Sym = substr(AllSymbols, J, 1);
-            #local ProdSymbols = L_Rules[asc(Sym)];
+            #local ProdSymbols = RULES[asc(Sym)];
             #if (strlen(ProdSymbols) > 0)
                 #local IterSymbols = concat(IterSymbols, ProdSymbols);
             #end // if
@@ -822,7 +839,7 @@ sl: Stack level
 #end // macro L_Transform_Debug
 
 
-#macro L_Transform_DebugMore(AxiomSymbols, L_Rules, NoOfIterations)
+#macro L_Transform_DebugMore(AxiomSymbols, NoOfIterations)
 
     #debug "\n"
     #local I = 0;
@@ -838,7 +855,7 @@ sl: Stack level
         DebugString("        ", IterSymbols)
         #for (J, 1, strlen(AllSymbols))
             #local Sym = substr(AllSymbols, J, 1);
-            #local ProdSymbols = L_Rules[asc(Sym)];
+            #local ProdSymbols = RULES[asc(Sym)];
             #debug concat("    Sym = ", Sym, "\n")
             #debug "    ProdSymbols =\n"
             DebugString("        ", ProdSymbols)
@@ -1483,7 +1500,7 @@ sl: Stack level
 
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ====== 10 ====== 11 ====== 12
 
-#declare Functions = array[MaxNoOfSymbols][19];
+#declare Functions = array[_MAX_NO_OF_SYMBOLS][19];
 
 InsertBasicFunctions(Functions)
 

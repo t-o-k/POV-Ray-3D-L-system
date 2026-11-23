@@ -63,14 +63,9 @@ InsertLengthFunctions(Functions, LengthScale, LengthIncrement)
 #declare Length_Initial = 1.0;
 #declare Radius_Initial = 0.5;
 
-
-// Constants
-#declare Rules[asc("f")] = "f"
-#declare Rules[asc("F")] = "F"
-
 InsertNoChangeFunctions(Functions, "G ")
 
-#declare Rules[asc("G")] = "[ <! @[f@][|f|@][+f-@][-f+@][^f&@][&f^@] [+f-[^f&G][&f^G]] [-f+[^f&G][&f^G]] [ f [+f-G[^f&G][&f^G]] [-f+G[^f&G][&f^G]] [^f&G][&f^G] ] [ |f| [+f-G[^f&G][&f^G]] [-f+G[^f&G][&f^G]] [^f&G][&f^G] ] ]"
+AddRule("G", "[ <! @[f@][|f|@][+f-@][-f+@][^f&@][&f^@] [+f-[^f&G][&f^G]] [-f+[^f&G][&f^G]] [ f [+f-G[^f&G][&f^G]] [-f+G[^f&G][&f^G]] [^f&G][&f^G] ] [ |f| [+f-G[^f&G][&f^G]] [-f+G[^f&G][&f^G]] [^f&G][&f^G] ] ]")
 
 #declare Axiom = "G"
 
@@ -78,7 +73,7 @@ InsertNoChangeFunctions(Functions, "G ")
     union {
         L_DrawAll(
             Functions,
-            L_Transform(Axiom, Rules, Iterations_Menger),
+            L_Transform(Axiom, Iterations_Menger),
             StackSize,
             pStart,
             vF_Initial,
@@ -93,13 +88,13 @@ InsertNoChangeFunctions(Functions, "G ")
     }
 
 
-#declare Rules[asc("G")] = "[ <! [+f-[^f&G][&f^G]] [-f+[^f&G][&f^G]] [ f [+f-G[^f&G][&f^G]] [-f+G[^f&G][&f^G]] [^f&G][&f^G] ] [ |f| [+f-G[^f&G][&f^G]] [-f+G[^f&G][&f^G]] [^f&G][&f^G] ] ]"
+AddRule("G", "[ <! [+f-[^f&G][&f^G]] [-f+[^f&G][&f^G]] [ f [+f-G[^f&G][&f^G]] [-f+G[^f&G][&f^G]] [^f&G][&f^G] ] [ |f| [+f-G[^f&G][&f^G]] [-f+G[^f&G][&f^G]] [^f&G][&f^G] ] ]")
 
 #declare Axiom = "G"
 
-#declare Axiom = L_Transform(Axiom, Rules, Iterations_Menger)
+#declare Axiom = L_Transform(Axiom, Iterations_Menger)
 
-#declare Rules[asc("G")] = "@"
+AddRule("G", "@")
 
 #declare Iterations_Extra = 1;
 
@@ -107,7 +102,7 @@ InsertNoChangeFunctions(Functions, "G ")
     union {
         L_DrawAll(
             Functions,
-            L_Transform(Axiom, Rules, Iterations_Extra),
+            L_Transform(Axiom, Iterations_Extra),
             StackSize,
             pStart,
             vF_Initial,

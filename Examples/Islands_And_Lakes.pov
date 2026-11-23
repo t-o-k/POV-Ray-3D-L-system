@@ -8,7 +8,7 @@ https://github.com/t-o-k/POV-Ray-3D-L-system
     "The Algorithmic Beauty of Plants", Figure 1.8 on page 9
 
 3D version:
-    From Laurens Lapr�'s "Lparser", BOP05.LS. Modified by "Droj" and Tor Olav Kristensen
+    From Laurens Laprï¿½'s "Lparser", BOP05.LS. Modified by "Droj" and Tor Olav Kristensen
 
 */
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ======= 10
@@ -23,16 +23,16 @@ global_settings { assumed_gamma 1.0 }
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ======= 10
 
 // Variables
-#declare Rules[asc("X")] = ":^F+F+F+F+&f";
-#declare Rules[asc("F")] = "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF";
-#declare Rules[asc("f")] = "ffffff;";
+AddRule("X", ":^F+F+F+F+&f")
+AddRule("F", "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF")
+AddRule("f", "ffffff;")
 
 InsertNoChangeFunctions(Functions, "X")
 
 #declare Axiom = "X+X+X+X";
 
 #declare Iterations = 3;  // Produces 10369 objects
-#declare L_string = L_Transform(Axiom, Rules, Iterations);
+#declare L_string = L_Transform(Axiom, Iterations);
 
 #declare StackSize = 0*Iterations;
 #declare pStart = <0, 0, 0>;

@@ -19,22 +19,18 @@ global_settings { assumed_gamma 1.0 }
 
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ======= 10
 
-// Constants
-#declare Rules[asc("F")] = "F";
-#declare Rules[asc("f")] = "f";
-
 // Variables
-#declare Rules[asc("A")] = "B-F+CFC+F-D&F^D-F+&&CFC+F+B//";
-#declare Rules[asc("B")] = "A&F^CFB^F^D^^-F-D^|F^B|FC^F^A//";
-#declare Rules[asc("C")] = "|D^|F^B-F+C^F^A&&FA&F^C+F+B^F^D//";
-#declare Rules[asc("D")] = "|CFB-F+B|FA&F^A&&FB-F+B|FC//";
+AddRule("A", "B-F+CFC+F-D&F^D-F+&&CFC+F+B//")
+AddRule("B", "A&F^CFB^F^D^^-F-D^|F^B|FC^F^A//")
+AddRule("C", "|D^|F^B-F+C^F^A&&FA&F^C+F+B^F^D//")
+AddRule("D", "|CFB-F+B|FA&F^A&&FB-F+B|FC//")
 
 #declare Axiom = "@A";
 
 InsertNoChangeFunctions(Functions, "ABCD")
 
 #declare Iterations = 2;
-#declare L_string = L_Transform(Axiom, Rules, Iterations);
+#declare L_string = L_Transform(Axiom, Iterations);
 
 #declare StackSize = 0*Iterations;
 #declare pStart = <-1.5, +1.5, +1.5>;
