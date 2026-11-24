@@ -8,7 +8,7 @@ https://github.com/t-o-k/POV-Ray-3D-L-system
     "The Algorithmic Beauty of Plants", Figure 1.8 on page 9
 
 3D version:
-    From Laurens Laprï¿½'s "Lparser", BOP05.LS. Modified by "Droj" and Tor Olav Kristensen
+    From Laurens Lapre's "Lparser", BOP05.LS. Modified by "Droj" and Tor Olav Kristensen
 
 */
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ======= 10
@@ -26,8 +26,6 @@ global_settings { assumed_gamma 1.0 }
 AddRule("X", ":^F+F+F+F+&f")
 AddRule("F", "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF")
 AddRule("f", "ffffff;")
-
-InsertNoChangeFunctions(Functions, "X")
 
 #declare Axiom = "X+X+X+X";
 
@@ -69,11 +67,10 @@ InsertNoChangeFunctions(Functions, "X")
         }
     }
 
-InsertMaterialsFunctions(Functions, NoOfMaterials)
+InsertMaterialsFunctions(NoOfMaterials)
 
 union {
     L_Draw(
-        Functions,
         L_string,
         StackSize,
         pStart,
