@@ -41,11 +41,11 @@ global_settings { assumed_gamma 1.0 }
 
 #declare RadiusScale = 3.0; 
 #declare RadiusIncrement = 0.0;
-InsertRadiusFunctions(Functions, RadiusScale, RadiusIncrement)
+InsertRadiusFunctions(RadiusScale, RadiusIncrement)
 
 #declare LengthScale = 3.0; 
 #declare LengthIncrement = 0.0;
-InsertLengthFunctions(Functions, LengthScale, LengthIncrement)
+InsertLengthFunctions(LengthScale, LengthIncrement)
 
 // ===== 1 ======= 2 ======= 3 ======= 4 ======= 5 ======= 6 ======= 7 ======= 8 ======= 9 ======= 10
 
@@ -63,8 +63,6 @@ InsertLengthFunctions(Functions, LengthScale, LengthIncrement)
 #declare Length_Initial = 1.0;
 #declare Radius_Initial = 0.5;
 
-InsertNoChangeFunctions(Functions, "G ")
-
 AddRule("G", "[ <! @[f@][|f|@][+f-@][-f+@][^f&@][&f^@] [+f-[^f&G][&f^G]] [-f+[^f&G][&f^G]] [ f [+f-G[^f&G][&f^G]] [-f+G[^f&G][&f^G]] [^f&G][&f^G] ] [ |f| [+f-G[^f&G][&f^G]] [-f+G[^f&G][&f^G]] [^f&G][&f^G] ] ]")
 
 #declare Axiom = "G"
@@ -72,7 +70,6 @@ AddRule("G", "[ <! @[f@][|f|@][+f-@][-f+@][^f&@][&f^@] [+f-[^f&G][&f^G]] [-f+[^f
 #declare MengerSponge_Inverted =
     union {
         L_DrawAll(
-            Functions,
             L_Transform(Axiom, Iterations_Menger),
             StackSize,
             pStart,
@@ -101,7 +98,6 @@ AddRule("G", "@")
 #declare MengerSponge =
     union {
         L_DrawAll(
-            Functions,
             L_Transform(Axiom, Iterations_Extra),
             StackSize,
             pStart,
