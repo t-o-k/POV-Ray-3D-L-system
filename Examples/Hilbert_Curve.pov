@@ -27,8 +27,6 @@ AddRule("D", "|CFB-F+B|FA&F^A&&FB-F+B|FC//")
 
 #declare Axiom = "@A";
 
-InsertNoChangeFunctions(Functions, "ABCD")
-
 #declare Iterations = 2;
 #declare L_string = L_Transform(Axiom, Iterations);
 
@@ -43,7 +41,6 @@ InsertNoChangeFunctions(Functions, "ABCD")
 
 union {
     L_Draw(
-        Functions,
         L_string,
         StackSize,
         pStart,
